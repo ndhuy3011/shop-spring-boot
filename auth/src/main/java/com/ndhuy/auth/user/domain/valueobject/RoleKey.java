@@ -6,4 +6,7 @@ public record RoleKey(String value) {
             throw new IllegalArgumentException("role key must not be null or empty");
         }
     }
+    public static RoleKey of(String value) {
+        return new RoleKey(value);
+    }
 }

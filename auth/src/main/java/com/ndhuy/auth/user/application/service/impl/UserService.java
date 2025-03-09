@@ -17,6 +17,7 @@ import jakarta.annotation.Resource;
 
 @Service
 public class UserService implements IUserService {
+    
     @Resource
     IUserDao userDao;
 

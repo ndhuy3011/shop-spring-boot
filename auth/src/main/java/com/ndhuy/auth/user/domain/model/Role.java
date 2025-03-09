@@ -1,5 +1,6 @@
 package com.ndhuy.auth.user.domain.model;
 
+import com.ndhuy.auth.user.application.dto.CreateRoleDto;
 import com.ndhuy.auth.user.domain.valueobject.RoleKey;
 import com.ndhuy.auth.user.domain.valueobject.Rolename;
 
@@ -23,6 +24,9 @@ public class Role {
 
     private Rolename roleName;
 
-    private String path;
+    public static Role of(CreateRoleDto createRole) {
+        return new Role(RoleKey.of(createRole.getId()),createRole.getName());
+
+    }
 
 }
