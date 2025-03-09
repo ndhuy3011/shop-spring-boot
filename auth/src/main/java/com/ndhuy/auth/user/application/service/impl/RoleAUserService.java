@@ -1,5 +1,8 @@
 package com.ndhuy.auth.user.application.service.impl;
 
+import java.util.Objects;
+
+import com.ndhuy.auth.user.application.dto.GetRoleAUser;
 import com.ndhuy.auth.user.application.service.IRoleAUserService;
 import com.ndhuy.auth.user.application.service.IRoleService;
 import com.ndhuy.auth.user.application.service.IUserService;
@@ -23,17 +26,21 @@ public class RoleAUserService implements IRoleAUserService {
     IUserService userService;
 
     @Override
-    public void addRoletoUser(String username, String role) {
+    public GetRoleAUser addRoletoUser(String username, String role) {
         var user = userService.getUser(username);
         var roleInfo = roleService.getRole(role);
-        if (user == null || roleInfo == null) {
-            throw new IllegalArgumentException("User or Role not found");
-        }
-        var roleAUser = new RoleAUserKey(RoleKey.of(role), UserKey.fromString(user.getId().toString()));
 
+        Objects.requireNonNull(user, "User not found");
+        Objects.requireNonNull(roleInfo, "Role not found");
+
+        var roleAUser = new RoleAUserKey(RoleKey.of(role), UserKey.fromString(user.getId().toString()));
         roleAUserDao.insert(new RoleAUser(roleAUser));
 
-        
+        return GetRoleAUser.builder()
+                .role(role)
+                .user(user.getUsername())
+                .build();
+
     }
 
     @Override

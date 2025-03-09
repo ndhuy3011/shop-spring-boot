@@ -1,6 +1,5 @@
 package com.ndhuy.auth.user.application.dto;
 
-import com.ndhuy.auth.user.domain.valueobject.RoleKey;
 import com.ndhuy.auth.user.domain.valueobject.Rolename;
 
 import lombok.AllArgsConstructor;
