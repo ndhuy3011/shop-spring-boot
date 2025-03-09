@@ -11,4 +11,5 @@ public interface IUserService extends UserDetailsService{
 
     GetInfoUserDto registerUser(RegisterUserDto userDto);
     JwtUserDto login(LoginUserDto userDto);
+    GetInfoUserDto getUser(String username);
 }

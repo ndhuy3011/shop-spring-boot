@@ -28,15 +28,15 @@ public class RoleAUserDao implements IRoleAUserDao {
 
     @Override
     public RoleAUser insert(RoleAUser input) {
-        Objects.requireNonNull(roleDao.findById(input.getId().getIdRole()), "Role not found");
-        Objects.requireNonNull(userDao.findById(input.getId().getIdUser()), "User not found");
+        Objects.requireNonNull(roleDao.findById(input.getId().idRole()), "Role not found");
+        Objects.requireNonNull(userDao.findById(input.getId().idUser()), "User not found");
         return roleAUserRepository.save(input);
     }
 
     @Override
     public RoleAUser update(RoleAUserKey id, RoleAUser input) {
-        Objects.requireNonNull(roleDao.findById(input.getId().getIdRole()), "Role not found");
-        Objects.requireNonNull(userDao.findById(input.getId().getIdUser()), "User not found");
+        Objects.requireNonNull(roleDao.findById(input.getId().idRole()), "Role not found");
+        Objects.requireNonNull(userDao.findById(input.getId().idUser()), "User not found");
         return roleAUserRepository.save(input);
     }
 

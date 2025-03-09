@@ -17,7 +17,7 @@ import jakarta.annotation.Resource;
 
 @Service
 public class UserService implements IUserService {
-    
+
     @Resource
     IUserDao userDao;
 
@@ -33,7 +33,6 @@ public class UserService implements IUserService {
     @Override
     public GetInfoUserDto registerUser(RegisterUserDto userDto) {
         var user = User.of(userDto);
-
         userDao.insert(user);
         return GetInfoUserDto.builder()
                 .id(user.getId().value())
@@ -47,11 +46,23 @@ public class UserService implements IUserService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        if(!user.getPassword().checkPassword(userDto.getPassword())) {
+        if (!user.getPassword().checkPassword(userDto.getPassword())) {
             throw new UsernameNotFoundException("Password not match");
         }
         return JwtUserDto.builder()
                 .jwt("jwt")
+                .build();
+    }
+
+    @Override
+    public GetInfoUserDto getUser(String username) {
+        var user = userDao.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return GetInfoUserDto.builder()
+                .id(user.getId().value())
+                .username(user.getUsername().value())
                 .build();
     }
 

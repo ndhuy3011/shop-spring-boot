@@ -16,7 +16,7 @@ public record UserKey(UUID value) {
     public UserKey(String value) {
         this(UUID.fromString(value));
     }
-    public UserKey fromString(String value) {
+    public static UserKey fromString(String value) {
         return new UserKey(UUID.fromString(value));
     }
 

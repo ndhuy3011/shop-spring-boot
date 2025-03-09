@@ -30,9 +30,10 @@ public class RoleServices implements IRoleService {
 
     @Override
     public GetInfoRoleDto createRole(CreateRoleDto role) {
-        roleDao.insert(Role.of(role));
+        var roleNew = roleDao.insert(Role.of(role));
         return GetInfoRoleDto.builder()
-                .name(role.getName())
+                .id(roleNew.getIdRole())
+                .name(roleNew.getRoleName())
                 .build();
     }
 

@@ -1,7 +1,5 @@
 package com.ndhuy.auth.user.domain.model;
 
-import java.io.Serializable;
-
 import com.ndhuy.auth.user.domain.valueobject.RoleAUserKey;
 
 import jakarta.persistence.EmbeddedId;
@@ -18,7 +16,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleAUser implements Serializable {
+public class RoleAUser  {
     @EmbeddedId
     private RoleAUserKey id;
+
+
 }
