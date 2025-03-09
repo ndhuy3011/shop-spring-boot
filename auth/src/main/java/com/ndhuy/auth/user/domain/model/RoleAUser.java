@@ -1,0 +1,24 @@
+package com.ndhuy.auth.user.domain.model;
+
+import java.io.Serializable;
+
+import com.ndhuy.auth.user.domain.valueobject.RoleAUserKey;
+
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Table
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class RoleAUser implements Serializable {
+    @EmbeddedId
+    private RoleAUserKey id;
+}
