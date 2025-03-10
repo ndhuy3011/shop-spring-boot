@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: mypassword  # Mật khẩu người dùng
       POSTGRES_DB: mydatabase  # Tên database mặc định
     ports:
-      - "5432:5432"  # Map cổng host 5432 tới cổng container 5432
+      - "54320:5432"  # Map cổng host 5432 tới cổng container 5432
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Lưu trữ dữ liệu persistent
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ công

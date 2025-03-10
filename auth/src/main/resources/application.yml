@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: auth
+    cloud:
+        vault:
+        host: localhost # Địa chỉ Vault
+        port: 8200 # Cổng Vault
+        scheme: http # Hoặc https nếu dùng TLS
+        token: myroot # Token để truy cập Vault (thay bằng token của bạn)
+        kv:
+            enabled: true # Bật Key/Value secret engine
+            backend: secret # Tên secret engine (mặc định là "secret")
+            application-name: random-app # Đường dẫn secret (secret/random-app)
+    datasource:
+        url: jdbc:postgresql://localhost:54320/mydatabase
+        username: myuser
+        password: mypassword
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+        show-sql: true

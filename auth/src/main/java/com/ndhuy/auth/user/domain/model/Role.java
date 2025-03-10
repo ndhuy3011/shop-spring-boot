@@ -4,28 +4,35 @@ import com.ndhuy.auth.user.application.dto.CreateRoleDto;
 import com.ndhuy.auth.user.domain.valueobject.RoleKey;
 import com.ndhuy.auth.user.domain.valueobject.Rolename;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Table(name = "a_role")
 @Entity
-@Table
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
-    @Id
+    @EmbeddedId
+    @AttributeOverride(name = "value", column = @Column(name = "role_no"))
     private RoleKey idRole;
-
+    
+    @Enumerated(EnumType.STRING)
     private Rolename roleName;
 
     public static Role of(CreateRoleDto createRole) {
-        return new Role(RoleKey.of(createRole.getId()),createRole.getName());
+        return new Role(RoleKey.of(createRole.getId()), createRole.getName());
 
     }
 

@@ -5,25 +5,30 @@ import com.ndhuy.auth.user.domain.valueobject.Password;
 import com.ndhuy.auth.user.domain.valueobject.UserKey;
 import com.ndhuy.auth.user.domain.valueobject.Username;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Table
+@Table(name = "a_user")
 @Entity
 @AllArgsConstructor
 @Getter
 @Setter
 public class User {
-    @Id
+    @EmbeddedId
+    @AttributeOverride(name = "value", column = @Column(name = "user_no"))
     private UserKey id;
-    @Column
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "username"))
     private Username username;
-    @Column
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "password"))
     private Password password;
 
     public User(Username username, Password password) {

@@ -1,5 +1,8 @@
 package com.ndhuy.auth.user.domain.valueobject;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public record RoleKey(String value) {
     public RoleKey {
         if (value == null ) {

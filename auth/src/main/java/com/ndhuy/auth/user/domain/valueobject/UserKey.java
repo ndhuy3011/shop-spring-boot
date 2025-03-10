@@ -2,6 +2,8 @@ package com.ndhuy.auth.user.domain.valueobject;
 
 import java.util.UUID;
 
+import jakarta.persistence.Embeddable;
+@Embeddable
 public record UserKey(UUID value) {
     public UserKey {
         if (value == null ) {
