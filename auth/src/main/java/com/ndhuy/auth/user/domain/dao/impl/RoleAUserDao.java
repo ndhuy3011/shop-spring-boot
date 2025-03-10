@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ndhuy.auth.user.domain.dao.IRoleAUserDao;
 import com.ndhuy.auth.user.domain.dao.IRoleDao;
 import com.ndhuy.auth.user.domain.dao.IUserDao;
+import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.RoleAUser;
 import com.ndhuy.auth.user.domain.repository.RoleAUserRepository;
 import com.ndhuy.auth.user.domain.valueobject.RoleAUserKey;
@@ -28,15 +29,15 @@ public class RoleAUserDao implements IRoleAUserDao {
 
     @Override
     public RoleAUser insert(RoleAUser input) {
-        Objects.requireNonNull(roleDao.findById(input.getId().idRole()), "Role not found");
-        Objects.requireNonNull(userDao.findById(input.getId().idUser()), "User not found");
+        Objects.requireNonNull(roleDao.findById(input.getId().idRole()), Message.ROLE_NOT_FOUND);
+        Objects.requireNonNull(userDao.findById(input.getId().idUser()), Message.USER_NOT_FOUND);
         return roleAUserRepository.save(input);
     }
 
     @Override
     public RoleAUser update(RoleAUserKey id, RoleAUser input) {
-        Objects.requireNonNull(roleDao.findById(input.getId().idRole()), "Role not found");
-        Objects.requireNonNull(userDao.findById(input.getId().idUser()), "User not found");
+        Objects.requireNonNull(roleDao.findById(input.getId().idRole()), Message.ROLE_NOT_FOUND);
+        Objects.requireNonNull(userDao.findById(input.getId().idUser()), Message.USER_NOT_FOUND);
         return roleAUserRepository.save(input);
     }
 

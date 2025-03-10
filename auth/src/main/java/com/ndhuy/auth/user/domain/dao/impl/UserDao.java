@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ndhuy.auth.user.domain.dao.IUserDao;
+import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.User;
 import com.ndhuy.auth.user.domain.repository.UserRepository;
 import com.ndhuy.auth.user.domain.valueobject.Password;
@@ -33,7 +34,7 @@ public class UserDao implements IUserDao {
     public User update(User user) {
 
         var userOld = findById(user.getId());
-        Objects.requireNonNull(userOld, "User not found");
+        Objects.requireNonNull(userOld, Message.USER_NOT_FOUND);
 
         return userRepository.save(user);
     }
@@ -63,8 +64,8 @@ public class UserDao implements IUserDao {
     public User updatePassword(UserKey id, String password) {
 
         var user = findById(id);
-        Objects.requireNonNull(user, "User not found");
-        Objects.requireNonNull(password, "Password is required");
+        Objects.requireNonNull(user, Message.USER_NOT_FOUND);
+        Objects.requireNonNull(password, Message.PASSWORD_IS_REQUIRED);
         if (user.getPassword().checkPassword(password)) {
             return user;
         }

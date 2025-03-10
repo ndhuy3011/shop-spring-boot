@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200" # Cổng mặc định của Vault
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=myroot # Token gốc để truy cập Vault trong dev mode
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK # Cần thiết để Vault khóa bộ nhớ
+    command: "server -dev" # Chạy Vault ở chế độ phát triển 
