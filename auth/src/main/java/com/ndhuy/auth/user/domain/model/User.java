@@ -1,7 +1,11 @@
 package com.ndhuy.auth.user.domain.model;
 
 import com.ndhuy.auth.user.domain.model.key.UserKey;
+import com.ndhuy.auth.user.domain.valueobject.Address;
+import com.ndhuy.auth.user.domain.valueobject.Email;
+import com.ndhuy.auth.user.domain.valueobject.Fullname;
 import com.ndhuy.auth.user.domain.valueobject.Password;
+import com.ndhuy.auth.user.domain.valueobject.Phone;
 import com.ndhuy.auth.user.domain.valueobject.Username;
 
 import jakarta.persistence.AttributeOverride;
@@ -10,17 +14,15 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Table(name = "a_user", indexes = {
         @jakarta.persistence.Index(name = "idx_username", columnList = "username")
 })
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class User {
@@ -34,12 +36,44 @@ public class User {
     @AttributeOverride(name = "value", column = @Column(name = "password", length = Password.MAX_LENGTH, nullable = false))
     private Password password;
 
-    public User(String username, String password) {
-        this.username = new Username(username);
-        this.password = new Password(password);
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "phone", length = Phone.MAX_LENGTH))
+    private Phone phone;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "address", length = Address.MAX_LENGTH))
+    private Address address;
+
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "fullName", length = Fullname.MAX_LENGTH))
+    private Fullname fullName;
+
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "email", length = Email.MAX_LENGTH, unique = true, nullable = false))
+    @jakarta.validation.constraints.Email
+    private Email email;
+
+    public static User of(String username, String password) {
+        return new User(new Username(username), new Password(password));
     }
 
-    public User(Username username, Password password) {
+
+    public static User of(String username, String password, String email, String phone, String address,
+            String fullName) {
+        return new User(new Username(username), new Password(password), new Email(email), new Phone(phone),
+                new Address(address), new Fullname(fullName));
+    }
+
+    private User(Username username, Password password, Email email, Phone phone, Address address, Fullname fullName) {
+        this.id = new UserKey();
+        this.username = username;
+        setPassword(password);
+        this.phone = phone;
+        this.address = address;
+        this.fullName = fullName;
+        this.email = email;
+    }
+
+    private User(Username username, Password password) {
         this.id = new UserKey();
         this.username = username;
         setPassword(password);
