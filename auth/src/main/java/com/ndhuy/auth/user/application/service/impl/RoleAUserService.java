@@ -9,9 +9,9 @@ import com.ndhuy.auth.user.application.service.IUserService;
 import com.ndhuy.auth.user.domain.dao.impl.RoleAUserDao;
 import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.RoleAUser;
-import com.ndhuy.auth.user.domain.valueobject.RoleAUserKey;
-import com.ndhuy.auth.user.domain.valueobject.RoleKey;
-import com.ndhuy.auth.user.domain.valueobject.UserKey;
+import com.ndhuy.auth.user.domain.model.key.RoleAUserKey;
+import com.ndhuy.auth.user.domain.model.key.RoleKey;
+import com.ndhuy.auth.user.domain.model.key.UserKey;
 
 import jakarta.annotation.Resource;
 

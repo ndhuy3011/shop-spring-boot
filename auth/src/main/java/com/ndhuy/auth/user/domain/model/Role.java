@@ -1,7 +1,7 @@
 package com.ndhuy.auth.user.domain.model;
 
 import com.ndhuy.auth.user.application.dto.CreateRoleDto;
-import com.ndhuy.auth.user.domain.valueobject.RoleKey;
+import com.ndhuy.auth.user.domain.model.key.RoleKey;
 import com.ndhuy.auth.user.domain.valueobject.Rolename;
 
 import jakarta.persistence.AttributeOverride;

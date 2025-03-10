@@ -1,7 +1,7 @@
 package com.ndhuy.auth.user.domain.dao;
 
 import com.ndhuy.auth.user.domain.model.Role;
-import com.ndhuy.auth.user.domain.valueobject.RoleKey;
+import com.ndhuy.auth.user.domain.model.key.RoleKey;
 
 public interface IRoleDao  extends IBaseDao<RoleKey,Role> {
   

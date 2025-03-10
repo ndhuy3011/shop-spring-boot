@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ndhuy.auth.user.domain.model.Role;
-import com.ndhuy.auth.user.domain.valueobject.RoleKey;
+import com.ndhuy.auth.user.domain.model.key.RoleKey;
 import com.ndhuy.auth.user.domain.valueobject.Rolename;
 
 

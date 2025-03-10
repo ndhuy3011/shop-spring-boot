@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ndhuy.auth.user.domain.dao.IRoleDao;
 import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.Role;
+import com.ndhuy.auth.user.domain.model.key.RoleKey;
 import com.ndhuy.auth.user.domain.repository.RoleRepository;
-import com.ndhuy.auth.user.domain.valueobject.RoleKey;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

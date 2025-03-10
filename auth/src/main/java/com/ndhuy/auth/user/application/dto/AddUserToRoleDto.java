@@ -12,5 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddUserToRoleDto {
-    String role; String username;
+    
+
+     String role;
+     String username;
+     
 }

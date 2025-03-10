@@ -1,4 +1,4 @@
-package com.ndhuy.auth.user.domain.valueobject;
+package com.ndhuy.auth.user.domain.model.key;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;

@@ -1,8 +1,7 @@
 package com.ndhuy.auth.user.domain.model;
 
-import com.ndhuy.auth.user.application.dto.RegisterUserDto;
+import com.ndhuy.auth.user.domain.model.key.UserKey;
 import com.ndhuy.auth.user.domain.valueobject.Password;
-import com.ndhuy.auth.user.domain.valueobject.UserKey;
 import com.ndhuy.auth.user.domain.valueobject.Username;
 
 import jakarta.persistence.AttributeOverride;
@@ -16,7 +15,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "a_user")
+@Table(name = "a_user", indexes = {
+        @jakarta.persistence.Index(name = "idx_username", columnList = "username")
+})
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,10 +28,10 @@ public class User {
     @AttributeOverride(name = "value", column = @Column(name = "user_no"))
     private UserKey id;
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "username"))
+    @AttributeOverride(name = "value", column = @Column(name = "username", length = Username.MAX_LENGTH, unique = true, nullable = false))
     private Username username;
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "password"))
+    @AttributeOverride(name = "value", column = @Column(name = "password", length = Password.MAX_LENGTH, nullable = false))
     private Password password;
 
     public User(String username, String password) {

@@ -1,13 +1,14 @@
-package com.ndhuy.auth.user.domain.valueobject;
+package com.ndhuy.auth.user.domain.model.key;
 
 import java.util.UUID;
 
 import jakarta.persistence.Embeddable;
 @Embeddable
 public record UserKey(UUID value) {
+    public static String USER_KEY_NULL = "User key must not be null or empty";
     public UserKey {
         if (value == null ) {
-            throw new IllegalArgumentException("Id User must not be null or empty");
+            throw new IllegalArgumentException(USER_KEY_NULL);
         }
     }
 

@@ -3,7 +3,7 @@ package com.ndhuy.auth.user.domain.dao;
 import java.util.Optional;
 
 import com.ndhuy.auth.user.domain.model.User;
-import com.ndhuy.auth.user.domain.valueobject.UserKey;
+import com.ndhuy.auth.user.domain.model.key.UserKey;
 import com.ndhuy.auth.user.domain.valueobject.Username;
 
 public interface IUserDao extends IBaseDao<UserKey,User> {

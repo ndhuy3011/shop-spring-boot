@@ -15,5 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class GetInfoRoleDto {
-    String id;Rolename name;
+    String id;
+    Rolename name;
 }

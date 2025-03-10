@@ -10,8 +10,8 @@ import com.ndhuy.auth.user.domain.dao.IRoleDao;
 import com.ndhuy.auth.user.domain.dao.IUserDao;
 import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.RoleAUser;
+import com.ndhuy.auth.user.domain.model.key.RoleAUserKey;
 import com.ndhuy.auth.user.domain.repository.RoleAUserRepository;
-import com.ndhuy.auth.user.domain.valueobject.RoleAUserKey;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

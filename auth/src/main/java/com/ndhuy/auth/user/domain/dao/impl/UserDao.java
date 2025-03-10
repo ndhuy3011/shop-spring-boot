@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ndhuy.auth.user.domain.dao.IUserDao;
 import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.User;
+import com.ndhuy.auth.user.domain.model.key.UserKey;
 import com.ndhuy.auth.user.domain.repository.UserRepository;
 import com.ndhuy.auth.user.domain.valueobject.Password;
-import com.ndhuy.auth.user.domain.valueobject.UserKey;
 import com.ndhuy.auth.user.domain.valueobject.Username;
 
 import jakarta.annotation.Resource;

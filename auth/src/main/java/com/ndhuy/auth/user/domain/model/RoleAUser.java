@@ -1,6 +1,6 @@
 package com.ndhuy.auth.user.domain.model;
 
-import com.ndhuy.auth.user.domain.valueobject.RoleAUserKey;
+import com.ndhuy.auth.user.domain.model.key.RoleAUserKey;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
