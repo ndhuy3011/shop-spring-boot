@@ -1,18 +1,15 @@
 package com.ndhuy.auth.user.application.dto;
 
-import com.ndhuy.auth.user.domain.valueobject.Password;
-import com.ndhuy.auth.user.domain.valueobject.Username;
-
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class LoginUserDto {
-   private Username username;
-   private Password password;
+    String username;
+    String password;
 }

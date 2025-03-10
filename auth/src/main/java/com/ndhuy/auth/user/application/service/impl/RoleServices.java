@@ -32,7 +32,7 @@ public class RoleServices implements IRoleService {
     public GetInfoRoleDto createRole(CreateRoleDto role) {
         var roleNew = roleDao.insert(Role.of(role));
         return GetInfoRoleDto.builder()
-                .id(roleNew.getIdRole())
+                .id(roleNew.getIdRole().value())
                 .name(roleNew.getRoleName())
                 .build();
     }

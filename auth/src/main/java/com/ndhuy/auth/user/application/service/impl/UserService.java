@@ -36,7 +36,7 @@ public class UserService implements IUserService {
     @Override
     public GetInfoUserDto registerUser(RegisterUserDto userDto) {
         log.info("Register user: {}", userDto);
-        var user = User.of(userDto);
+        var user = new User(userDto.getUsername(), userDto.getPassword());
         userDao.insert(user);
         return GetInfoUserDto.builder()
                 .id(user.getId().value())

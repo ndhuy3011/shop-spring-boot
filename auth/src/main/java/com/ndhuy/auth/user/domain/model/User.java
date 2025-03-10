@@ -13,11 +13,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Table(name = "a_user")
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class User {
@@ -31,6 +33,11 @@ public class User {
     @AttributeOverride(name = "value", column = @Column(name = "password"))
     private Password password;
 
+    public User(String username, String password) {
+        this.username = new Username(username);
+        this.password = new Password(password);
+    }
+
     public User(Username username, Password password) {
         this.id = new UserKey();
         this.username = username;
@@ -40,10 +47,6 @@ public class User {
     public void setPassword(Password password) {
         password.hashPassword();
         this.password = password;
-    }
-
-    public static User of(RegisterUserDto registerUserDto) {
-        return new User(registerUserDto.getUsername(), registerUserDto.getPassword());
     }
 
 }

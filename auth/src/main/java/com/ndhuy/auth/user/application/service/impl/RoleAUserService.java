@@ -39,7 +39,7 @@ public class RoleAUserService implements IRoleAUserService {
 
         return GetRoleAUser.builder()
                 .role(role)
-                .user(user.getUsername())
+                .username(user.getUsername())
                 .build();
 
     }
