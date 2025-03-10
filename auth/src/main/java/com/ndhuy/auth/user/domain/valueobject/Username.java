@@ -9,7 +9,7 @@ public record Username(String value) {
             + " characters";
     public static final String NULL_MESSAGE = "Username must not be null or empty";
 
-    public Username {
+    public static final void validate(String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(NULL_MESSAGE);
         }
@@ -19,6 +19,10 @@ public record Username(String value) {
         if (!value.matches(PATTERN)) {
             throw new IllegalArgumentException(PATTERN_MESSAGE);
         }
+    }
+
+    public Username {
+        validate(value);
     }
 
     public static Username of(String value) {

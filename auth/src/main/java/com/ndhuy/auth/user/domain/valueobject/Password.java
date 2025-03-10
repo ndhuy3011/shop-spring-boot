@@ -12,13 +12,20 @@ public record Password(String value) {
             + " characters";
     public static final String NULL_MESSAGE = "Password must not be null or empty";
 
-    public Password {
+    public static final void validate(String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(NULL_MESSAGE);
+        }
+        if (value.length() < MIN_LENGTH || value.length() > MAX_LENGTH) {
+            throw new IllegalArgumentException(LENGTH_MESSAGE);
         }
         if (!value.matches(PATTERN)) {
             throw new IllegalArgumentException(PATTERN_MESSAGE);
         }
+    }
+
+    public Password {
+        validate(value);
     }
 
     public static Password of(String password) {

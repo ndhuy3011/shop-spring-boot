@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class RegisterUserDto extends LoginUserDto{
+public class RegisterUserDto extends LoginUserDto {
     String email;
     String fullName;
     String phone;
