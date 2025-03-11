@@ -32,16 +32,13 @@ public record Password(String value) {
         return new Password(password);
     }
 
-    private String hashString(String value) {
-        return BCrypt.hashpw(value, BCrypt.gensalt());
-    }
+    public static Password hashPassword(String password) {
+        return new Password(BCrypt.hashpw(password, BCrypt.gensalt()));
 
-    public String hashPassword(String password) {
-        return hashString(password);
     }
+    public static Password hashPassword(Password password) {
+        return new Password(BCrypt.hashpw(password.value, BCrypt.gensalt()));
 
-    public void hashPassword() {
-        BCrypt.hashpw(this.value, BCrypt.gensalt());
     }
 
     public boolean checkPassword(String password) {

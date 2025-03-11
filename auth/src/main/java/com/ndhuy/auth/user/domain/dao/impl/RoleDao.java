@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ndhuy.auth.user.domain.dao.IRoleDao;
-import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.Role;
 import com.ndhuy.auth.user.domain.model.key.RoleKey;
 import com.ndhuy.auth.user.domain.repository.RoleRepository;
@@ -31,7 +30,7 @@ public class RoleDao implements IRoleDao {
     @Override
     public Role update(RoleKey id, Role role) {
         var roleOld = findById(id);
-        Objects.requireNonNull(roleOld, Message.ROLE_NOT_FOUND);
+        Objects.requireNonNull(roleOld, "ROLE_NOT_FOUND");
         return roleRepository.save(role);
 
     }

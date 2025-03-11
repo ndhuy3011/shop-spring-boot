@@ -1,4 +1,7 @@
 spring:
+    messages:
+        basename: message
+        encoding: UTF-8
     application:
         name: auth
     cloud:
@@ -11,7 +14,6 @@ spring:
                 enabled: true # Bật Key/Value secret engine
                 backend: secret # Tên secret engine (mặc định là "secret")
                 application-name: authentication  # Đường dẫn secret (secret/random-app)
-                version: 2
     datasource:
         url: jdbc:postgresql://localhost:54320/mydatabase
         username: myuser

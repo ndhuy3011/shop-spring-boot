@@ -13,6 +13,7 @@ import com.ndhuy.auth.user.application.dto.RegisterUserDto;
 import com.ndhuy.auth.user.application.service.IUserService;
 
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,7 +31,7 @@ public class UserPublicRest {
         return ResponseEntity.ok().body(user);
     }
     @PostMapping("/register")
-    public ResponseEntity<GetInfoUserDto> postRegister(@RequestBody RegisterUserDto entity) {
+    public ResponseEntity<GetInfoUserDto> postRegister(@RequestBody @Valid RegisterUserDto entity) {
         log.info("postRegister");
         var user = userService.registerUser(entity);
         return ResponseEntity.ok().body(user);

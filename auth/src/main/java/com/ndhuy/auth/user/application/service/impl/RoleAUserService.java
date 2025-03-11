@@ -7,7 +7,6 @@ import com.ndhuy.auth.user.application.service.IRoleAUserService;
 import com.ndhuy.auth.user.application.service.IRoleService;
 import com.ndhuy.auth.user.application.service.IUserService;
 import com.ndhuy.auth.user.domain.dao.impl.RoleAUserDao;
-import com.ndhuy.auth.user.domain.exception.Message;
 import com.ndhuy.auth.user.domain.model.RoleAUser;
 import com.ndhuy.auth.user.domain.model.key.RoleAUserKey;
 import com.ndhuy.auth.user.domain.model.key.RoleKey;
@@ -31,8 +30,8 @@ public class RoleAUserService implements IRoleAUserService {
         var user = userService.getUser(username);
         var roleInfo = roleService.getRole(role);
 
-        Objects.requireNonNull(user, Message.USER_NOT_FOUND);
-        Objects.requireNonNull(roleInfo, Message.ROLE_NOT_FOUND);
+        Objects.requireNonNull(user, "USER_NOT_FOUND");
+        Objects.requireNonNull(roleInfo, "ROLE_NOT_FOUND");
 
         var roleAUser = new RoleAUserKey(RoleKey.of(role), UserKey.fromString(user.getId().toString()));
         roleAUserDao.insert(new RoleAUser(roleAUser));

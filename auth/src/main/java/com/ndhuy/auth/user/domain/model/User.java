@@ -48,14 +48,12 @@ public class User {
     private Fullname fullName;
 
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "email", length = Email.MAX_LENGTH, unique = true, nullable = false))
-    @jakarta.validation.constraints.Email
+    @AttributeOverride(name = "value", column = @Column(name = "email", length = Email.MAX_LENGTH, unique = true))
     private Email email;
 
     public static User of(String username, String password) {
         return new User(new Username(username), new Password(password));
     }
-
 
     public static User of(String username, String password, String email, String phone, String address,
             String fullName) {
@@ -80,8 +78,7 @@ public class User {
     }
 
     public void setPassword(Password password) {
-        password.hashPassword();
-        this.password = password;
+        this.password = Password.hashPassword(password);
     }
 
 }
