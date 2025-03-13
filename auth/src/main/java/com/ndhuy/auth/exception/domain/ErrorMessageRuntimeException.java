@@ -1,4 +1,4 @@
-package com.ndhuy.auth.user.domain.exception;
+package com.ndhuy.auth.exception.domain;
 
 import java.util.Locale;
 
@@ -29,3 +29,4 @@ public class ErrorMessageRuntimeException extends RuntimeException{
         return errorCode;
     }
 }
+                
