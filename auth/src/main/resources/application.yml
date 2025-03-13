@@ -3,14 +3,10 @@ spring:
         name: auth
     cloud:
         vault:
-            host: localhost # Địa chỉ Vault
-            port: 8200 # Cổng Vault
-            scheme: http # Hoặc https nếu dùng TLS
-            token: myroot # Token để truy cập Vault (thay bằng token của bạn)
-            kv:
-                enabled: true # Bật Key/Value secret engine
-                backend: secret # Tên secret engine (mặc định là "secret")
-                application-name: authentication  # Đường dẫn secret (secret/random-app)
+            host: localhost
+            port: 8200 
+            scheme: http 
+            token: myroot 
     datasource:
         url: jdbc:postgresql://localhost:54320/mydatabase
         username: myuser
@@ -21,3 +17,4 @@ spring:
         hibernate:
             ddl-auto: update
         show-sql: true
+

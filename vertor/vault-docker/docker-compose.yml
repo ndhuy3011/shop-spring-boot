@@ -11,4 +11,8 @@ services:
       - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
     cap_add:
       - IPC_LOCK # Cần thiết để Vault khóa bộ nhớư
-    command: "server -dev" # Chạy Vault ở chế độ phát triển 
+    command: "server -dev" # Chạy Vault ở chế độ phát triển
+    volumes:
+      - ./:/vault/file
+volumes:
+  vault-data: 

@@ -1,0 +1,2 @@
+keytool -genkeypair -alias mykey -keyalg RSA -keysize 2048 -validity 365 -keystore keystore.jks -storepass mypassword -keypass mypassword -dname "CN=MyApp, OU=Dev, O=MyCompany, L=Hanoi, S=Hanoi, C=VN"
+keytool -exportcert -rfc -keystore keystore.jks -alias mykey -storepass mypassword -file publickey.pem

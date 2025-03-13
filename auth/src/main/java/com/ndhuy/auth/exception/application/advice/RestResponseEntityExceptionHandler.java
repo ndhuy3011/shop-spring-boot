@@ -29,15 +29,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorMessage> handleArgumentNotValidException(MethodArgumentNotValidException ex,
-            Locale locale) {
-        BindingResult result = ex.getBindingResult();
-        List<String> errorMessages = result.getAllErrors()
-                .stream()
-                .map(err -> messageSource.getMessage(err, locale))
-                .toList();
-        return new ResponseEntity<>(new ErrorMessage(errorMessages), HttpStatus.BAD_REQUEST);
-    }
+    // @ExceptionHandler(MethodArgumentNotValidException.class)
+    // public ResponseEntity<ErrorMessage> handleArgumentNotValidException(MethodArgumentNotValidException ex,
+    //         Locale locale) {
+    //     BindingResult result = ex.getBindingResult();
+    //     List<String> errorMessages = result.getAllErrors()
+    //             .stream()
+    //             .map(err -> messageSource.getMessage(err, locale))
+    //             .toList();
+    //     return new ResponseEntity<>(new ErrorMessage(errorMessages), HttpStatus.BAD_REQUEST);
+    // }
     
 }

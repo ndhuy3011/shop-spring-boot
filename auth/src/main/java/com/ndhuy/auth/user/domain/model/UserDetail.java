@@ -19,14 +19,13 @@ public class UserDetail implements UserDetails, CredentialsContainer {
         this.password = password;
     }
 
-
     public static UserDetail of(User user) {
         return new UserDetail(user.getUsername(), user.getPassword());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
- 
+
         throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
     }
 
