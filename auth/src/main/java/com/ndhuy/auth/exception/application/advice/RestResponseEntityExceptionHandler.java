@@ -11,7 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ndhuy.auth.exception.domain.ErrorMessage;
 import com.ndhuy.auth.exception.domain.ErrorMessageRuntimeException;
@@ -19,7 +18,7 @@ import com.ndhuy.auth.exception.domain.ErrorMessageRuntimeException;
 import jakarta.annotation.Resource;
 
 @RestControllerAdvice
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestResponseEntityExceptionHandler{
     @Resource
     MessageSource messageSource;
 
@@ -29,15 +28,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // @ExceptionHandler(MethodArgumentNotValidException.class)
-    // public ResponseEntity<ErrorMessage> handleArgumentNotValidException(MethodArgumentNotValidException ex,
-    //         Locale locale) {
-    //     BindingResult result = ex.getBindingResult();
-    //     List<String> errorMessages = result.getAllErrors()
-    //             .stream()
-    //             .map(err -> messageSource.getMessage(err, locale))
-    //             .toList();
-    //     return new ResponseEntity<>(new ErrorMessage(errorMessages), HttpStatus.BAD_REQUEST);
-    // }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorMessage> handleArgumentNotValidException(MethodArgumentNotValidException ex,
+            Locale locale) {
+        BindingResult result = ex.getBindingResult();
+        List<String> errorMessages = result.getAllErrors()
+                .stream()
+                .map(err -> messageSource.getMessage(err, locale))
+                .toList();
+        return new ResponseEntity<>(new ErrorMessage(errorMessages), HttpStatus.BAD_REQUEST);
+    }
     
 }

@@ -1,6 +1,21 @@
-version: '3.8'  # Phiên bản Docker Compose
+version: '3.8'
 
 services:
+  vault:
+    image: hashicorp/vault:latest
+    user: "0:0" 
+    container_name: vault
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - vault-data:/vault/data
+      - ./vault-config:/vault/config
+    command: "server"
   postgres:
     image: postgres:latest  # Sử dụng image PostgreSQL chính thức từ Docker Hub
     container_name: postgres_db  # Đặt tên container
@@ -13,6 +28,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Lưu trữ dữ liệu persistent
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ công
-
+  redis:
+    image: redis:latest
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --requirepass your_password
 volumes:
+  vault-data:
+  redis-data:
   postgres_data:  # Định nghĩa volume để lưu dữ liệu
