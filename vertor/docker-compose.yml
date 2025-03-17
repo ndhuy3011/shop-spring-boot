@@ -13,7 +13,6 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - vault-data:/vault/data
       - ./vault-config:/vault/config
     command: "server"
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ công
