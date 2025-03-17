@@ -16,6 +16,7 @@ services:
       - vault-data:/vault/data
       - ./vault-config:/vault/config
     command: "server"
+    restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ công
   postgres:
     image: postgres:latest  # Sử dụng image PostgreSQL chính thức từ Docker Hub
     container_name: postgres_db  # Đặt tên container
@@ -36,6 +37,7 @@ services:
     volumes:
       - redis-data:/data
     command: redis-server --requirepass your_password
+    restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ côn
 volumes:
   vault-data:
   redis-data:
