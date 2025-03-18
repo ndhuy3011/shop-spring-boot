@@ -25,6 +25,12 @@ public class UserService implements IUserService {
     @Resource
     IUserDao userDao;
 
+    
+    /** 
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userDao.findByUsername(username);
@@ -34,6 +40,11 @@ public class UserService implements IUserService {
         return UserDetail.of(user);
     }
 
+    
+    /** 
+     * @param userDto
+     * @return GetInfoUserDto
+     */
     @Override
     public GetInfoUserDto registerUser(RegisterUserDto userDto) {
         log.info("Register user: {}", userDto);
@@ -49,6 +60,11 @@ public class UserService implements IUserService {
                 .build();
     }
 
+    
+    /** 
+     * @param userDto
+     * @return JwtUserDto
+     */
     @Override
     public JwtUserDto login(LoginUserDto userDto) {
         log.info("Login user: {}", userDto.getUsername());
@@ -64,6 +80,11 @@ public class UserService implements IUserService {
                 .build();
     }
 
+    
+    /** 
+     * @param username
+     * @return GetInfoUserDto
+     */
     @Override
     public GetInfoUserDto getUser(String username) {
         log.info("Get user: {}", username);

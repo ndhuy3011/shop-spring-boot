@@ -23,12 +23,20 @@ public class UserDao implements IUserDao {
     @Resource
     private UserRepository userRepository;
 
+    /**
+     * @param user
+     * @return User
+     */
     @Override
     public User insert(User user) {
         return userRepository.save(user);
 
     }
 
+    /**
+     * @param user
+     * @return User
+     */
     @Override
     public User update(User user) {
 
@@ -38,27 +46,47 @@ public class UserDao implements IUserDao {
         return userRepository.save(user);
     }
 
+    /**
+     * @param user
+     * @return User
+     */
     @Override
     public User delete(User user) {
         userRepository.delete(user);
         return user;
     }
 
+    /**
+     * @param id
+     * @return User
+     */
     @Override
     public User findById(UserKey id) {
         return userRepository.findById(id).orElse(null);
     }
 
+    /**
+     * @param username
+     * @return User
+     */
     @Override
     public User findByUsername(Username username) {
         return userRepository.findByUsername(username).orElse(null);
     }
 
+    /**
+     * @return Optional<User>
+     */
     @Override
     public Optional<User> findAll() {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
+    /**
+     * @param id
+     * @param password
+     * @return User
+     */
     @Override
     public User updatePassword(UserKey id, String password) {
 
@@ -76,11 +104,20 @@ public class UserDao implements IUserDao {
 
     }
 
+    /**
+     * @param username
+     * @return User
+     */
     @Override
     public User findByUsername(String username) {
         return findByUsername(Username.of(username));
     }
 
+    /**
+     * @param id
+     * @param user
+     * @return User
+     */
     @Override
     public User update(UserKey id, User user) {
 

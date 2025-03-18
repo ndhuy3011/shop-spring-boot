@@ -18,6 +18,9 @@ public class RoleServices implements IRoleService {
     @Resource
     IRoleDao roleDao;
 
+    /**
+     * @param role
+     */
     @Override
     public void removeRole(String role) {
         throw new UnsupportedOperationException("Unimplemented method 'removeRole'");
@@ -28,6 +31,10 @@ public class RoleServices implements IRoleService {
         throw new UnsupportedOperationException("Unimplemented method 'removeAllRole'");
     }
 
+    /**
+     * @param role
+     * @return GetInfoRoleDto
+     */
     @Override
     public GetInfoRoleDto createRole(CreateRoleDto role) {
         var roleNew = roleDao.insert(Role.of(role));
@@ -37,6 +44,10 @@ public class RoleServices implements IRoleService {
                 .build();
     }
 
+    /**
+     * @param role
+     * @return GetInfoRoleDto
+     */
     @Override
     public GetInfoRoleDto getRole(String role) {
         throw new UnsupportedOperationException("Unimplemented method 'getRole'");
