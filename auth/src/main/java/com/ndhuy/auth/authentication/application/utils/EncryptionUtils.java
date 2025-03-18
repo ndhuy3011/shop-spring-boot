@@ -21,7 +21,7 @@ public class EncryptionUtils {
     private static final String PKCS_8_PEM_HEADER = "-----BEGIN PRIVATE KEY-----";
     private static final String PKCS_8_PEM_FOOTER = "-----END PRIVATE KEY-----";
 
-    public static PrivateKey loadKeyFile(String keyFilePath) throws GeneralSecurityException, IOException {
+    public static PrivateKey loadKeyWithFile(String keyFilePath) throws GeneralSecurityException, IOException {
         byte[] keyDataBytes = Files.readAllBytes(Paths.get(keyFilePath));
 
         String keyDataString = new String(keyDataBytes, StandardCharsets.UTF_8);
@@ -34,7 +34,7 @@ public class EncryptionUtils {
         return readPkcs8PrivateKey(Files.readAllBytes(Paths.get(keyFilePath)));
     }
 
-    public static PrivateKey loadKeyBase64(String base64) {
+    public static PrivateKey loadKeyWithBase64(String base64) {
         byte[] decodedPrivateKey = Base64.getDecoder().decode(base64);
 
         String rsaKey = new String(decodedPrivateKey, StandardCharsets.UTF_8);
@@ -94,7 +94,6 @@ public class EncryptionUtils {
         byte[] pkcs8bytes = join(pkcs8Header, pkcs1Bytes);
         return readPkcs8PrivateKey(pkcs8bytes);
     }
-
 
     private static byte[] join(byte[] byteArray1, byte[] byteArray2) {
         byte[] bytes = new byte[byteArray1.length + byteArray2.length];
