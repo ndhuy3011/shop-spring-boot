@@ -30,6 +30,10 @@ public class SecurityRCAConfig {
     private RSAPublicKey publicKeyRca;
     private RSAPrivateKey privateKeyRca;
 
+    public SecurityRCAConfig(VaultTemplate vaultTemplate) {
+        this.vaultTemplate = vaultTemplate;
+    }
+
     @Bean
     RSAPublicKey publicKeyRca() {
         return this.publicKeyRca;
@@ -57,10 +61,6 @@ public class SecurityRCAConfig {
         PublicKey publicKey = DecryptionUtils.loadPublicKeyWithPrivaKey(privateKey);
         this.publicKeyRca = (RSAPublicKey) publicKey;
 
-    }
-
-    public SecurityRCAConfig(VaultTemplate vaultTemplate) {
-        this.vaultTemplate = vaultTemplate;
     }
 
 }

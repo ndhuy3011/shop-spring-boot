@@ -11,9 +11,15 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
+import org.apache.logging.log4j.util.Strings;
+
+import com.ndhuy.auth.exception.domain.PrivateKeyRetrievalException;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class EncryptionUtils {
     private EncryptionUtils() {
-
     }
 
     private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
@@ -23,50 +29,49 @@ public class EncryptionUtils {
 
     public static PrivateKey loadKeyWithFile(String keyFilePath) throws GeneralSecurityException, IOException {
         byte[] keyDataBytes = Files.readAllBytes(Paths.get(keyFilePath));
-
         String keyDataString = new String(keyDataBytes, StandardCharsets.UTF_8);
-
         if (keyDataString.contains(PKCS_1_PEM_HEADER) || keyDataString.contains(PKCS_8_PEM_HEADER)) {
             return loadKey(keyDataString);
         }
-
         // We assume it's a PKCS#8 DER encoded binary file
         return readPkcs8PrivateKey(Files.readAllBytes(Paths.get(keyFilePath)));
     }
 
     public static PrivateKey loadKeyWithBase64(String base64) {
+        if (Strings.isEmpty(base64) || Strings.isBlank(base64)) {
+            throw new PrivateKeyRetrievalException(" load Key With Base64 String is null");
+        }
         byte[] decodedPrivateKey = Base64.getDecoder().decode(base64);
-
         String rsaKey = new String(decodedPrivateKey, StandardCharsets.UTF_8);
-
         return loadKey(rsaKey);
     }
 
     private static PrivateKey loadKey(String keyData) {
 
-        try {
-            if (keyData.contains(PKCS_1_PEM_HEADER)) {
-                // OpenSSL / PKCS#1 Base64 PEM encoded file
+        if (keyData.contains(PKCS_1_PEM_HEADER)) {
+            // OpenSSL / PKCS#1 Base64 PEM encoded file
+            try {
                 keyData = keyData.replace(PKCS_1_PEM_HEADER, "")
                         .replace(PKCS_1_PEM_FOOTER, "")
                         .replace("\n", "")
                         .replace("\r", "");
                 return readPkcs1PrivateKey(Base64.getDecoder().decode(keyData));
+            } catch (GeneralSecurityException e) {
+                log.error("Error loading key", e);
+                throw new PrivateKeyRetrievalException("Failed to load key", e);
             }
-
-            if (keyData.contains(PKCS_8_PEM_HEADER)) {
-                // PKCS#8 Base64 PEM encoded file
-                keyData = keyData.replace(PKCS_8_PEM_HEADER, "")
-                        .replace(PKCS_8_PEM_FOOTER, "")
-                        .replace("\n", "")
-                        .replace("\r", "");
-                return readPkcs8PrivateKey(Base64.getDecoder().decode(keyData));
-            }
-
-        } catch (Exception e) {
-            return null;
         }
-        return null;
+
+        try {
+            keyData = keyData.replace(PKCS_8_PEM_HEADER, "")
+                    .replace(PKCS_8_PEM_FOOTER, "")
+                    .replace("\n", "")
+                    .replace("\r", "");
+            return readPkcs8PrivateKey(Base64.getDecoder().decode(keyData));
+        } catch (GeneralSecurityException e) {
+            log.error("Error loading key", e);
+            throw new PrivateKeyRetrievalException("Failed to load key", e);
+        }
 
     }
 
@@ -76,7 +81,7 @@ public class EncryptionUtils {
         try {
             return keyFactory.generatePrivate(keySpec);
         } catch (InvalidKeySpecException e) {
-            throw new IllegalArgumentException("Unexpected key format!", e);
+            throw new PrivateKeyRetrievalException("Unexpected key format!", e);
         }
     }
 
