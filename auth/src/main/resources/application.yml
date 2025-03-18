@@ -6,7 +6,6 @@ spring:
             host: localhost
             port: 8200 
             scheme: http 
-            token: hvs.CAESILGhYJiGyX9l4F2EKBgzhlQ_MVs6ZtdgB-m5m4PgSHRYGh4KHGh2cy4wck0wRDUyUGtTM2RaYTBsUXJrRU9MdVU 
     datasource:
         url: jdbc:postgresql://localhost:54320/mydatabase
         username: myuser
