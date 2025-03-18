@@ -26,6 +26,11 @@ public class RoleAUserDao implements IRoleAUserDao {
     @Resource
     IUserDao userDao;
 
+    
+    /** 
+     * @param input
+     * @return RoleAUser
+     */
     @Override
     public RoleAUser insert(RoleAUser input) {
         Objects.requireNonNull(roleDao.findById(input.getId().idRole()), "ROLE_NOT_FOUND");
@@ -33,6 +38,12 @@ public class RoleAUserDao implements IRoleAUserDao {
         return roleAUserRepository.save(input);
     }
 
+    
+    /** 
+     * @param id
+     * @param input
+     * @return RoleAUser
+     */
     @Override
     public RoleAUser update(RoleAUserKey id, RoleAUser input) {
         Objects.requireNonNull(roleDao.findById(input.getId().idRole()), "ROLE_NOT_FOUND");
@@ -40,11 +51,21 @@ public class RoleAUserDao implements IRoleAUserDao {
         return roleAUserRepository.save(input);
     }
 
+    
+    /** 
+     * @param input
+     * @return RoleAUser
+     */
     @Override
     public RoleAUser delete(RoleAUser input) {
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
+    
+    /** 
+     * @param id
+     * @return RoleAUser
+     */
     @Override
     public RoleAUser findById(RoleAUserKey id) {
         throw new UnsupportedOperationException("Unimplemented method 'findById'");

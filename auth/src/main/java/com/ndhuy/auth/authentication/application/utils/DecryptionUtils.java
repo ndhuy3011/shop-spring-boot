@@ -17,6 +17,10 @@ public class DecryptionUtils {
     private DecryptionUtils() {
     }
 
+    /**
+     * @param privateKey
+     * @return PublicKey
+     */
     public static PublicKey loadPublicKeyWithPrivaKey(PrivateKey privateKey) {
         if (privateKey == null) {
             throw new PublicKeyRetrievalException("PrivateKey cannot be null");
@@ -27,6 +31,11 @@ public class DecryptionUtils {
         return loadPublicKeyWithRSAPrivateCrtKey((RSAPrivateCrtKey) privateKey);
     }
 
+    /**
+     * @param privateKey
+     * @return PublicKey
+     * @throws PublicKeyRetrievalException
+     */
     public static PublicKey loadPublicKeyWithRSAPrivateCrtKey(RSAPrivateCrtKey privateKey)
             throws PublicKeyRetrievalException {
         if (privateKey == null) {

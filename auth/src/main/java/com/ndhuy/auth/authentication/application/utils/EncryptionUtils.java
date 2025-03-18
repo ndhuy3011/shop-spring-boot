@@ -27,6 +27,12 @@ public class EncryptionUtils {
     private static final String PKCS_8_PEM_HEADER = "-----BEGIN PRIVATE KEY-----";
     private static final String PKCS_8_PEM_FOOTER = "-----END PRIVATE KEY-----";
 
+    /**
+     * @param keyFilePath
+     * @return PrivateKey
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
     public static PrivateKey loadKeyWithFile(String keyFilePath) throws GeneralSecurityException, IOException {
         byte[] keyDataBytes = Files.readAllBytes(Paths.get(keyFilePath));
         String keyDataString = new String(keyDataBytes, StandardCharsets.UTF_8);
@@ -37,6 +43,10 @@ public class EncryptionUtils {
         return readPkcs8PrivateKey(Files.readAllBytes(Paths.get(keyFilePath)));
     }
 
+    /**
+     * @param base64
+     * @return PrivateKey
+     */
     public static PrivateKey loadKeyWithBase64(String base64) {
         if (Strings.isEmpty(base64) || Strings.isBlank(base64)) {
             throw new PrivateKeyRetrievalException(" load Key With Base64 String is null");
@@ -46,6 +56,10 @@ public class EncryptionUtils {
         return loadKey(rsaKey);
     }
 
+    /**
+     * @param keyData
+     * @return PrivateKey
+     */
     private static PrivateKey loadKey(String keyData) {
 
         if (keyData.contains(PKCS_1_PEM_HEADER)) {
@@ -75,6 +89,11 @@ public class EncryptionUtils {
 
     }
 
+    /**
+     * @param pkcs8Bytes
+     * @return PrivateKey
+     * @throws GeneralSecurityException
+     */
     private static PrivateKey readPkcs8PrivateKey(byte[] pkcs8Bytes) throws GeneralSecurityException {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA", "SunRsaSign");
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pkcs8Bytes);
@@ -85,6 +104,11 @@ public class EncryptionUtils {
         }
     }
 
+    /**
+     * @param pkcs1Bytes
+     * @return PrivateKey
+     * @throws GeneralSecurityException
+     */
     private static PrivateKey readPkcs1PrivateKey(byte[] pkcs1Bytes) throws GeneralSecurityException {
         // We can't use Java internal APIs to parse ASN.1 structures, so we build a
         // PKCS#8 key Java can understand
@@ -100,6 +124,11 @@ public class EncryptionUtils {
         return readPkcs8PrivateKey(pkcs8bytes);
     }
 
+    /**
+     * @param byteArray1
+     * @param byteArray2
+     * @return byte[]
+     */
     private static byte[] join(byte[] byteArray1, byte[] byteArray2) {
         byte[] bytes = new byte[byteArray1.length + byteArray2.length];
         System.arraycopy(byteArray1, 0, bytes, 0, byteArray1.length);
