@@ -10,17 +10,17 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 public class MessageConfig {
     @Bean
-public Validator validatorFactory (MessageSource messageSource) {
-    LocalValidatorFactoryBean validator =  new LocalValidatorFactoryBean();
-    validator.setValidationMessageSource(messageSource);
-    return validator;
-}
+    Validator validatorFactory(MessageSource messageSource) {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource);
+        return validator;
+    }
 
-@Bean
-public MessageSource messageSource() {
-    ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
-    bean.addBasenames("classpath:org.hibernate.validator.ValidationMessages", "classpath:validation_errors"); // validation_errors.properties is my resource bundle
-    bean.setDefaultEncoding("UTF-8");
-    return bean;
-}
+    @Bean
+    MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
+        bean.addBasenames("classpath:org.hibernate.validator.ValidationMessages", "classpath:validation_errors");
+        bean.setDefaultEncoding("UTF-8");
+        return bean;
+    }
 }
