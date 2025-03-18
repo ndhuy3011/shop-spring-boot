@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.ndhuy.auth.exception.domain.NotFondUserException;
 import com.ndhuy.auth.user.application.dto.GetInfoUserDto;
 import com.ndhuy.auth.user.application.dto.JwtUserDto;
 import com.ndhuy.auth.user.application.dto.LoginUserDto;
@@ -25,8 +26,7 @@ public class UserService implements IUserService {
     @Resource
     IUserDao userDao;
 
-    
-    /** 
+    /**
      * @param username
      * @return UserDetails
      * @throws UsernameNotFoundException
@@ -35,13 +35,12 @@ public class UserService implements IUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userDao.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("USER_NOT_FOUND");
+            throw new NotFondUserException();
         }
         return UserDetail.of(user);
     }
 
-    
-    /** 
+    /**
      * @param userDto
      * @return GetInfoUserDto
      */
@@ -50,7 +49,7 @@ public class UserService implements IUserService {
         log.info("Register user: {}", userDto);
         var user = userDao.findByUsername(userDto.getUsername());
         if (!Objects.isNull(user)) {
-            throw new UsernameNotFoundException("USER_EXIST");
+            throw new NotFondUserException();
         }
         var userNew = User.of(userDto.getUsername(), userDto.getPassword());
         userDao.insert(userNew);
@@ -60,8 +59,7 @@ public class UserService implements IUserService {
                 .build();
     }
 
-    
-    /** 
+    /**
      * @param userDto
      * @return JwtUserDto
      */
@@ -70,7 +68,7 @@ public class UserService implements IUserService {
         log.info("Login user: {}", userDto.getUsername());
         var user = userDao.findByUsername(userDto.getUsername());
         if (Objects.isNull(user)) {
-            throw new UsernameNotFoundException("USER_NOT_FOUND");
+            throw new NotFondUserException();
         }
         if (!user.getPassword().checkPassword(userDto.getPassword())) {
             throw new UsernameNotFoundException("Password not match");
@@ -80,8 +78,7 @@ public class UserService implements IUserService {
                 .build();
     }
 
-    
-    /** 
+    /**
      * @param username
      * @return GetInfoUserDto
      */
@@ -90,7 +87,7 @@ public class UserService implements IUserService {
         log.info("Get user: {}", username);
         var user = userDao.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("USER_NOT_FOUND");
+            throw new NotFondUserException();
         }
         return GetInfoUserDto.builder()
                 .id(user.getId().value())

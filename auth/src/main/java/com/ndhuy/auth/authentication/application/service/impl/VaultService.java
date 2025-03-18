@@ -9,13 +9,11 @@ public class VaultService implements IVaultService{
 
     @Override
     public String getPublickey() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPublickey'");
     }
 
     @Override
     public String getPrivateKey() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPrivateKey'");
     }
     
