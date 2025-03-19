@@ -1,6 +1,4 @@
-package com.ndhuy.auth.user.application.dto;
-
-import java.util.UUID;
+package com.ndhuy.auth.authentication.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GetInfoUserDto {
-    UUID id;
-    String username;
+public class PermissionOut {
+   private String jwt;
+   private String issueAt;
+   private String expiresAt;
 }

@@ -64,7 +64,7 @@ public class User {
     private User(Username username, Password password, Email email, Phone phone, Address address, Fullname fullName) {
         this.id = new UserKey();
         this.username = username;
-        setPassword(password);
+        this.password = password;
         this.phone = phone;
         this.address = address;
         this.fullName = fullName;
@@ -74,11 +74,7 @@ public class User {
     private User(Username username, Password password) {
         this.id = new UserKey();
         this.username = username;
-        setPassword(password);
-    }
-
-    public void setPassword(Password password) {
-        this.password = Password.hashPassword(password);
+        this.password = password;
     }
 
 }
