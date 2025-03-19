@@ -1,7 +1,5 @@
 package com.ndhuy.auth.user.domain.valueobject;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
 public record Password(String value) {
     public static final int MIN_LENGTH = 8;
     public static final int MAX_LENGTH = 100;
@@ -12,7 +10,7 @@ public record Password(String value) {
             + " characters";
     public static final String NULL_MESSAGE = "Password must not be null or empty";
 
-    public static final void validate(String value) {
+    public Password {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(NULL_MESSAGE);
         }
@@ -24,29 +22,8 @@ public record Password(String value) {
         }
     }
 
-    public Password {
-        validate(value);
-    }
-
     public static Password of(String password) {
         return new Password(password);
-    }
-
-    public static Password hashPassword(String password) {
-        return new Password(BCrypt.hashpw(password, BCrypt.gensalt()));
-
-    }
-    public static Password hashPassword(Password password) {
-        return new Password(BCrypt.hashpw(password.value, BCrypt.gensalt()));
-
-    }
-
-    public boolean checkPassword(String password) {
-        return BCrypt.checkpw(password, this.value);
-    }
-
-    public boolean checkPassword(Password password) {
-        return BCrypt.checkpw(password.value(), this.value);
     }
 
 }

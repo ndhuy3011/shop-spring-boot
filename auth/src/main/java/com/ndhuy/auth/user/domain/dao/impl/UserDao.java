@@ -3,6 +3,7 @@ package com.ndhuy.auth.user.domain.dao.impl;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional
 public class UserDao implements IUserDao {
+
+    @Resource
+    PasswordEncoder passwordEncoder;
     @Resource
     private UserRepository userRepository;
 
@@ -29,6 +33,7 @@ public class UserDao implements IUserDao {
      */
     @Override
     public User insert(User user) {
+        user.setPassword(Password.of(passwordEncoder.encode(user.getPassword().value())));
         return userRepository.save(user);
 
     }
@@ -42,6 +47,10 @@ public class UserDao implements IUserDao {
 
         var userOld = findById(user.getId());
         Objects.requireNonNull(userOld, "USER_NOT_FOUND");
+
+        userOld.setAddress(Objects.isNull(user.getAddress()) ? userOld.getAddress() : user.getAddress());
+        userOld.setFullName(Objects.isNull(user.getFullName()) ? userOld.getFullName() : user.getFullName());
+        userOld.setPhone(Objects.isNull(user.getPhone()) ? userOld.getPhone() : user.getPhone());
 
         return userRepository.save(user);
     }
@@ -93,7 +102,8 @@ public class UserDao implements IUserDao {
         var user = findById(id);
         Objects.requireNonNull(user, "USER_NOT_FOUND");
         Objects.requireNonNull(password, "PASSWORD_IS_REQUIRED");
-        if (user.getPassword().checkPassword(password)) {
+
+        if (passwordEncoder.matches(user.getPassword().value(), password)) {
             return user;
         }
 

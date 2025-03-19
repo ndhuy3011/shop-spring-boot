@@ -23,6 +23,7 @@ public class UserDetail implements UserDetails, CredentialsContainer {
         return new UserDetail(user.getUsername(), user.getPassword());
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
