@@ -40,7 +40,7 @@ public class PermissionServiceImpl implements PermissionService, JwtService {
         log.info(log.getName() + " Service Domain");
 
         var userDetails = queryUserService.loadUserByUsername(cplIn.getUsername());
-        if (!passwordEncoder.matches(userDetails.getPassword(), cplIn.getPassword())) {
+        if (!passwordEncoder.matches(cplIn.getPassword(), userDetails.getPassword())) {
             throw new PasswordRuntimeException();
         }
         var user = queryUserService.getUser(cplIn.getUsername());
