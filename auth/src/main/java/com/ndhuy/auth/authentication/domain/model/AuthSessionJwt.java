@@ -8,12 +8,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@RedisHash("auth_session")
+@RedisHash("auth_session_jwt")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class SessionAuth {
+public class AuthSessionJwt {
     @Id
     private String jwtSession;
+
+    private String issueAt;
+    private String expiresAt;
+
 }
