@@ -19,6 +19,11 @@ public class UserDetail implements UserDetails, CredentialsContainer {
         this.password = password;
     }
 
+    
+    /** 
+     * @param user
+     * @return UserDetail
+     */
     public static UserDetail of(User user) {
         return new UserDetail(user.getUsername(), user.getPassword());
     }

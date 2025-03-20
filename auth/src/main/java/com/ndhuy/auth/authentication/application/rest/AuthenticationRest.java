@@ -25,6 +25,11 @@ public class AuthenticationRest {
 
     @Resource OpenAccountService openAccountService;
 
+    
+    /** 
+     * @param permissionIn
+     * @return ResponseEntity<PermissionOut>
+     */
     @PostMapping("/verify-user")
     public ResponseEntity<PermissionOut> postVerifyUser(final @Valid @RequestBody PermissionIn permissionIn) {
         return ResponseEntity.ok().body(permissionService.doMain(permissionIn));

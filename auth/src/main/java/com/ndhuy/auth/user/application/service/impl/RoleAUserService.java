@@ -25,6 +25,12 @@ public class RoleAUserService implements IRoleAUserService {
     @Resource
     QueryUserService queryUserService;
 
+    
+    /** 
+     * @param username
+     * @param role
+     * @return GetRoleAUser
+     */
     @Override
     public GetRoleAUser addRoletoUser(String username, String role) {
         var user = queryUserService.getUser(username);

@@ -31,6 +31,11 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private Rolename roleName;
 
+    
+    /** 
+     * @param createRole
+     * @return Role
+     */
     public static Role of(CreateRoleDto createRole) {
         return new Role(RoleKey.of(createRole.getId()), createRole.getName());
 

@@ -18,6 +18,11 @@ public class  AuthSessionJwtDaoImpl implements AuthSessionJwtDao {
     @Resource
     AuthSessionJwtRepository sessionAuthRepository;
 
+    
+    /** 
+     * @param cplin
+     * @return AuthSessionJwt
+     */
     @Override
     public AuthSessionJwt insert(AuthSessionJwt cplin) {
 

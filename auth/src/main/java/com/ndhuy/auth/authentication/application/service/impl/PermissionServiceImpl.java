@@ -30,6 +30,11 @@ public class PermissionServiceImpl implements PermissionService {
     @Resource
     AddSessionJwtAuth addSessionJwtAuth;
 
+    
+    /** 
+     * @param cplIn
+     * @return PermissionOut
+     */
     @Override
     public PermissionOut doMain(PermissionIn cplIn) {
         log.info(log.getName() + " Service Domain");

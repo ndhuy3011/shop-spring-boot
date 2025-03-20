@@ -53,6 +53,10 @@ public class RoleServices implements IRoleService {
         throw new UnsupportedOperationException("Unimplemented method 'getRole'");
     }
 
+    
+    /** 
+     * @return List<GetInfoRoleDto>
+     */
     @Override
     public List<GetInfoRoleDto> getAllRole() {
         throw new UnsupportedOperationException("Unimplemented method 'getAllRole'");

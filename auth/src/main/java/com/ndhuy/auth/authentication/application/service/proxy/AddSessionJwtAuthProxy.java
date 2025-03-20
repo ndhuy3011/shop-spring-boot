@@ -18,6 +18,11 @@ public class AddSessionJwtAuthProxy implements AddSessionJwtAuth {
     @Resource
     AddSessionAuthImpl addSessionAuthImpl;
 
+    
+    /** 
+     * @param cplin
+     * @return AddSessionAuthJwtOut
+     */
     @Override
     public AddSessionAuthJwtOut doMain(@Valid AddSessionAuthJwtIn cplin) {
         addSessionAuthImpl.checkMain(cplin);

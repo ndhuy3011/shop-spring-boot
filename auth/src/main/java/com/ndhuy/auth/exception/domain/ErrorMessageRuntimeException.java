@@ -20,6 +20,10 @@ public class ErrorMessageRuntimeException extends RuntimeException{
         this.locale = locale;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String getMessage() {
         return messageSource.getMessage(messageKey, args, locale);

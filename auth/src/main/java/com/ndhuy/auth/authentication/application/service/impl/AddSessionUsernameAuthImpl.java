@@ -12,10 +12,15 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class AddSessionUsernameAuthImpl  implements AddSessionUsernameAuth{
 
+    
+    /** 
+     * @param cplIn
+     * @return AddSessionAuthUsernameOut
+     */
     @Override
     public AddSessionAuthUsernameOut doMain(AddSessionAuthUsernameIn cplIn) {
-        // TODO Auto-generated method stub
+      
         throw new UnsupportedOperationException("Unimplemented method 'doMain'");
     }
     
-}
+}   

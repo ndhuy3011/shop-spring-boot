@@ -22,6 +22,11 @@ public record Password(String value) {
         }
     }
 
+    
+    /** 
+     * @param password
+     * @return Password
+     */
     public static Password of(String password) {
         return new Password(password);
     }

@@ -15,6 +15,11 @@ public class QuerySessionAuthImpl implements QuerySesssionAuth {
     @Resource
     AuthSessionJwtDao sessionAuthDao;
 
+    
+    /** 
+     * @param jwt
+     * @return GetSesssionAuthOut
+     */
     @Override
     public GetSesssionAuthOut getSessionAuth(String jwt) {
         var sessionAuth = sessionAuthDao.findById(jwt);

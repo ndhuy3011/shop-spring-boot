@@ -11,6 +11,11 @@ import com.ndhuy.auth.authentication.application.service.AddSessionUsernameAuth;
 @Component
 public class AddSessionUsernameProxy implements AddSessionUsernameAuth {
 
+    
+    /** 
+     * @param cplIn
+     * @return AddSessionAuthUsernameOut
+     */
     @Override
     public AddSessionAuthUsernameOut doMain(AddSessionAuthUsernameIn cplIn) {
         // TODO Auto-generated method stub

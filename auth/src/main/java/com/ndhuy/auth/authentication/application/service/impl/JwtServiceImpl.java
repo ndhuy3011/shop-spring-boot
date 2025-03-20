@@ -26,6 +26,11 @@ public class JwtServiceImpl implements JwtService {
     @Resource
     JwtDecoder jwtDecoder;
 
+    
+    /** 
+     * @param cplIn
+     * @return PermissionOut
+     */
     @Override
     public PermissionOut generatorJWT(GetInfoUserOut cplIn) {
         log.info(log.getName() + " generator JWT ");
