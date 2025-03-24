@@ -1,7 +1,7 @@
 package com.ndhuy.auth.authentication.application.service;
 
-import com.ndhuy.auth.authentication.application.dto.PermissionIn;
-import com.ndhuy.auth.authentication.application.dto.PermissionOut;
+import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionIn;
+import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
 import com.ndhuy.auth.exception.domain.PasswordRuntimeException;
 
 public interface PermissionService {

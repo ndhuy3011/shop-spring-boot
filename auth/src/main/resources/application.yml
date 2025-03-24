@@ -25,6 +25,3 @@ spring:
             # password: your_password
             database: 0 # Chọn database (mặc định là 0)
             timeout: 2000 # Timeout cho các operation (ms)
-logging:
-  level:
-    io.lettuce.core: DEBUG

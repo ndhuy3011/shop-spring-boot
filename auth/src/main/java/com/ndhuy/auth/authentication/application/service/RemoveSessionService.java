@@ -1,6 +1,6 @@
 package com.ndhuy.auth.authentication.application.service;
 
-import com.ndhuy.auth.authentication.application.dto.RemoveSessionJwtOut;
+import com.ndhuy.auth.authentication.application.dto.RemoveSessionDto.RemoveSessionJwtOut;
 
 public interface RemoveSessionService {
     /**
