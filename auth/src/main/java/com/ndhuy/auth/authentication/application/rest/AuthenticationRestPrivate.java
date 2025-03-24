@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ndhuy.auth.authentication.application.dto.GetInfoUserSessionOut;
-import com.ndhuy.auth.authentication.application.dto.RemoveSessionJwtOut;
+import com.ndhuy.auth.authentication.application.dto.GetSessionDto.GetInfoUserSessionOut;
+import com.ndhuy.auth.authentication.application.dto.RemoveSessionDto.RemoveSessionJwtOut;
 import com.ndhuy.auth.authentication.application.service.QuerySesssionService;
 import com.ndhuy.auth.authentication.application.service.RemoveSessionService;
 

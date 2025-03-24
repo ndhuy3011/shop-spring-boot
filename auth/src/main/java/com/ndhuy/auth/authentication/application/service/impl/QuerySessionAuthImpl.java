@@ -4,8 +4,8 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.GetInfoUserSessionOut;
-import com.ndhuy.auth.authentication.application.dto.GetSesssionAuthOut;
+import com.ndhuy.auth.authentication.application.dto.GetSessionDto.GetInfoUserSessionOut;
+import com.ndhuy.auth.authentication.application.dto.GetSessionDto.GetSesssionAuthOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
 import com.ndhuy.auth.authentication.application.service.QuerySesssionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;

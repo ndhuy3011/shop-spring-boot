@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ndhuy.auth.authentication.application.dto.JsonWebKeySetOut;
+import com.ndhuy.auth.authentication.application.dto.JsonWebKeyDto.JsonWebKeySetOut;
 import com.ndhuy.auth.authentication.application.service.QueryRSASerivce;
 
 import jakarta.annotation.Resource;

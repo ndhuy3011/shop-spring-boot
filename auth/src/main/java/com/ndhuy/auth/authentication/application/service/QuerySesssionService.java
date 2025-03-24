@@ -1,7 +1,7 @@
 package com.ndhuy.auth.authentication.application.service;
 
-import com.ndhuy.auth.authentication.application.dto.GetInfoUserSessionOut;
-import com.ndhuy.auth.authentication.application.dto.GetSesssionAuthOut;
+import com.ndhuy.auth.authentication.application.dto.GetSessionDto.GetInfoUserSessionOut;
+import com.ndhuy.auth.authentication.application.dto.GetSessionDto.GetSesssionAuthOut;
 
 public interface QuerySesssionService {
     /**

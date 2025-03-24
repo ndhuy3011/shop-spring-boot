@@ -2,7 +2,7 @@ package com.ndhuy.auth.authentication.application.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.RefrestSessionOut;
+import com.ndhuy.auth.authentication.application.dto.RefrestSessionDto.RefrestSessionOut;
 import com.ndhuy.auth.authentication.application.service.RefreshSessionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionUserDao;

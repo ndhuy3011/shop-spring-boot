@@ -2,7 +2,7 @@ package com.ndhuy.auth.authentication.application.service;
 
 import java.util.Map;
 
-import com.ndhuy.auth.authentication.application.dto.PermissionOut;
+import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
 import com.ndhuy.auth.user.application.dto.GetInfoUserOut;
 
 public interface JwtService {

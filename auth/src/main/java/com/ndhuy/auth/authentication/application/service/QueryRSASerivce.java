@@ -1,6 +1,6 @@
 package com.ndhuy.auth.authentication.application.service;
 
-import com.ndhuy.auth.authentication.application.dto.JsonWebKeySetOut;
+import com.ndhuy.auth.authentication.application.dto.JsonWebKeyDto.JsonWebKeySetOut;
 
 public interface QueryRSASerivce {
         /**

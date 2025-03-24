@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.PermissionOut;
+import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
 import com.ndhuy.auth.user.application.dto.GetInfoUserOut;
 

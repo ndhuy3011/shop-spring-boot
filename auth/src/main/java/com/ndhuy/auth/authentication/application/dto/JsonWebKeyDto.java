@@ -9,10 +9,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class JsonWebKeySetOut {
-    private List<JsonWebKey> keys;
+public class JsonWebKeyDto {
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class JsonWebKeySetOut {
+        private List<JsonWebKey> keys;
+    }
+
 }

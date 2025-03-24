@@ -9,9 +9,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.JsonWebKeySetOut;
-import com.ndhuy.auth.authentication.application.service.QueryRSASerivce;
 import com.ndhuy.auth.authentication.domain.model.JsonWebKey;
+import com.ndhuy.auth.authentication.application.dto.JsonWebKeyDto.JsonWebKeySetOut;
+import com.ndhuy.auth.authentication.application.service.QueryRSASerivce;
 
 import jakarta.annotation.Resource;
 

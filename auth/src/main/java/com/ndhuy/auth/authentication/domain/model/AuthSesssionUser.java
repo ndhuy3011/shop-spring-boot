@@ -22,7 +22,7 @@ public class AuthSesssionUser {
     private String username;
     private String fullName;
     private String email;
-    private Set<String> jwtSessionIds;
+    private Set<String> jwtSessionIds = new HashSet<>();
     
     private AuthSesssionUser(String username, String fullName, String email) {
         this.username = username;

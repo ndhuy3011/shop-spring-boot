@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.RemoveSessionJwtOut;
+import com.ndhuy.auth.authentication.application.dto.RemoveSessionDto.RemoveSessionJwtOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
 import com.ndhuy.auth.authentication.application.service.RemoveSessionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;

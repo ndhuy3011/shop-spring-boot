@@ -5,10 +5,10 @@ import java.util.Objects;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.AddSessionJwtIn;
-import com.ndhuy.auth.authentication.application.dto.AddSessionUserIn;
-import com.ndhuy.auth.authentication.application.dto.PermissionIn;
-import com.ndhuy.auth.authentication.application.dto.PermissionOut;
+import com.ndhuy.auth.authentication.application.dto.AddSessionDto.AddSessionJwtIn;
+import com.ndhuy.auth.authentication.application.dto.AddSessionDto.AddSessionUserIn;
+import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionIn;
+import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
 import com.ndhuy.auth.authentication.application.service.PermissionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
@@ -135,7 +135,9 @@ public class PermissionAuthImpl implements PermissionService {
             var user = queryUserService.getUser(cplIn.getUsername());
             sessionUser = AuthSesssionUser.of(cplIn.getUsername(), user.getFullName(), user.getEmail());
             authSessionUserDao.insert(sessionUser);
-        } else {
+        }
+         else {
+            
             var isJWT = sessionUser.getJwtSessionIds().contains(cplIn.getUsername());
             if (isJWT) {
                 throw new JwtExistException();
