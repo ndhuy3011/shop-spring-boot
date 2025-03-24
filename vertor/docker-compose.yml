@@ -35,7 +35,7 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
-    command: redis-server --requirepass your_password
+    command: redis-server
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ côn
 volumes:
   vault-data:

@@ -21,6 +21,10 @@ spring:
         redis: # Cấu hình Redis
             host: localhost # Địa chỉ của Redis server
             port: 6379 # Port của Redis server
-            password: # Mật khẩu (nếu có)
+            # username: default
+            # password: your_password
             database: 0 # Chọn database (mặc định là 0)
             timeout: 2000 # Timeout cho các operation (ms)
+logging:
+  level:
+    io.lettuce.core: DEBUG

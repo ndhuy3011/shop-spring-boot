@@ -134,15 +134,18 @@ public class PermissionAuthImpl implements PermissionService {
             // Get user information.
             var user = queryUserService.getUser(cplIn.getUsername());
             sessionUser = AuthSesssionUser.of(cplIn.getUsername(), user.getFullName(), user.getEmail());
-        }
-        var isJWT = sessionUser.getJwtSessionIds().contains(cplIn.getUsername());
-        if (isJWT) {
-            throw new JwtExistException();
+            authSessionUserDao.insert(sessionUser);
+        } else {
+            var isJWT = sessionUser.getJwtSessionIds().contains(cplIn.getUsername());
+            if (isJWT) {
+                throw new JwtExistException();
+            }
+
+            sessionUser.getJwtSessionIds().add(cplIn.getJwtSession());
+
+            authSessionUserDao.update(cplIn.getUsername(), sessionUser);
         }
 
-        sessionUser.getJwtSessionIds().add(cplIn.getJwtSession());
-
-        authSessionUserDao.update(cplIn.getUsername(), sessionUser);
     }
 
 }
