@@ -26,8 +26,7 @@ public class JwtServiceImpl implements JwtService {
     @Resource
     JwtDecoder jwtDecoder;
 
-    
-    /** 
+    /**
      * @param cplIn
      * @return PermissionOut
      */
@@ -53,6 +52,11 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public Map<String, Object> parseJWT(String token) {
         return jwtDecoder.decode(token).getClaims();
+    }
+
+    @Override
+    public String getUsername(String token) {
+        return jwtDecoder.decode(token).getId();
     }
 
 }

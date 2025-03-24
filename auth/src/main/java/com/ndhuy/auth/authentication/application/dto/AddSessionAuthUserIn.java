@@ -1,5 +1,6 @@
 package com.ndhuy.auth.authentication.application.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddSessionAuthUsernameOut {
+public class AddSessionAuthUserIn {
+
+    @NotNull
     private String username;
+    @NotNull
+    private String jwtSession;
 }

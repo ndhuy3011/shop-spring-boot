@@ -13,13 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @Transactional
-public class  AuthSessionJwtDaoImpl implements AuthSessionJwtDao {
+public class AuthSessionJwtDaoImpl implements AuthSessionJwtDao {
 
     @Resource
     AuthSessionJwtRepository sessionAuthRepository;
 
-    
-    /** 
+    /**
      * @param cplin
      * @return AuthSessionJwt
      */
@@ -42,7 +41,11 @@ public class  AuthSessionJwtDaoImpl implements AuthSessionJwtDao {
 
     @Override
     public AuthSessionJwt update(String id, AuthSessionJwt input) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        var sessionAuth = findOne(id);
+        sessionAuth.setJwtSession(input.getJwtSession());
+        sessionAuthRepository.save(sessionAuth);
+        return input;
+
     }
 
     @Override

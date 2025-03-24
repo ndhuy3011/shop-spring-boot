@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddSessionAuthUsernameIn {
+public class AddSessionAuthUserOut {
     private String username;
-    private String jwtSession;
 }

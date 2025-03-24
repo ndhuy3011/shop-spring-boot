@@ -8,4 +8,6 @@ import com.ndhuy.auth.user.application.dto.GetInfoUserOut;
 public interface JwtService {
     public PermissionOut generatorJWT(GetInfoUserOut cplIn);
     public Map<String, Object> parseJWT(String token) ;
+
+    public String getUsername(String token);
 }
