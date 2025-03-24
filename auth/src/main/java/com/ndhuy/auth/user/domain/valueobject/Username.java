@@ -9,6 +9,10 @@ public record Username(String value) {
             + " characters";
     public static final String NULL_MESSAGE = "Username must not be null or empty";
 
+    
+    /** 
+     * @param value
+     */
     public static final void validate(String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(NULL_MESSAGE);

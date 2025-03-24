@@ -7,6 +7,10 @@ public record Email(String value) {
     public static final String PATTERN_MESSAGE = "Email must be valid";
     public static final String LENGTH_MESSAGE = "Email must be between " + MIN_LENGTH + " and " + MAX_LENGTH
             + " characters";
+    
+    /** 
+     * @param value
+     */
     public static final void validate(String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException("Email must not be null or empty");

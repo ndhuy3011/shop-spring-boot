@@ -51,6 +51,12 @@ public class User {
     @AttributeOverride(name = "value", column = @Column(name = "email", length = Email.MAX_LENGTH, unique = true))
     private Email email;
 
+    
+    /** 
+     * @param username
+     * @param password
+     * @return User
+     */
     public static User of(String username, String password) {
         return new User(new Username(username), new Password(password));
     }

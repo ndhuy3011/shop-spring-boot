@@ -11,6 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @Slf4j
 public class SecurityFilterChainConfig {
+    
+    /** 
+     * @param http
+     * @return SecurityFilterChain
+     * @throws Exception
+     */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         log.info("Loading Security Filter Chain");

@@ -12,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SecurityPasswordConfig {
 
+    
+    /** 
+     * @return PasswordEncoder
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         log.info("Loading Password EnCoder");

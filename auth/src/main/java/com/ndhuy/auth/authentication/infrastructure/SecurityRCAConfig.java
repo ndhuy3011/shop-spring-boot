@@ -43,6 +43,10 @@ public class SecurityRCAConfig {
         this.vaultTemplate = vaultTemplate;
     }
 
+    
+    /** 
+     * @return RSAPublicKey
+     */
     @Bean
     RSAPublicKey publicKeyRca() {
         return this.publicKeyRca;

@@ -18,20 +18,31 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthenticationRest {
+@RequestMapping("api/public/auth")
+public class AuthenticationRestPublic {
     @Resource
     PermissionService permissionService;
 
-    @Resource OpenAccountService openAccountService;
+    @Resource
+    OpenAccountService openAccountService;
 
+    /**
+     * @param permissionIn
+     * @return ResponseEntity<PermissionOut>
+     */
     @PostMapping("/verify-user")
     public ResponseEntity<PermissionOut> postVerifyUser(final @Valid @RequestBody PermissionIn permissionIn) {
         return ResponseEntity.ok().body(permissionService.doMain(permissionIn));
     }
+
+    /**
+     * 
+     * @param openAccountIn
+     * @return ResponseEntity<OpenAccountOut>
+     */
     @PostMapping("/create-user")
     public ResponseEntity<OpenAccountOut> postMethodName(final @Valid @RequestBody OpenAccountIn openAccountIn) {
-        return  ResponseEntity.status(HttpStatus.CREATED).body(openAccountService.doMain(openAccountIn));
+        return ResponseEntity.status(HttpStatus.CREATED).body(openAccountService.doMain(openAccountIn));
     }
-    
+
 }

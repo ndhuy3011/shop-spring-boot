@@ -22,6 +22,12 @@ public class RestResponseEntityExceptionHandler{
     @Resource
     MessageSource messageSource;
 
+    
+    /** 
+     * @param ex
+     * @param request
+     * @return ResponseEntity<Object>
+     */
     @ExceptionHandler(ErrorMessageRuntimeException.class)
     public ResponseEntity<Object> handleErrorMessageRuntimeException(ErrorMessageRuntimeException ex,
             WebRequest request) {

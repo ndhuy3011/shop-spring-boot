@@ -19,6 +19,11 @@ public record UserKey(UUID value) {
     public UserKey(String value) {
         this(UUID.fromString(value));
     }
+    
+    /** 
+     * @param value
+     * @return UserKey
+     */
     public static UserKey fromString(String value) {
         return new UserKey(UUID.fromString(value));
     }

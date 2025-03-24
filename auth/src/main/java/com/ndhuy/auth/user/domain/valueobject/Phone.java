@@ -5,6 +5,10 @@ public record Phone(String value) {
     public static final String REGEX_MESSAGE = "Phone is invalid";
     public static final int MAX_LENGTH = 11;
 
+    
+    /** 
+     * @param value
+     */
     public static final void validate(String value) {
         if (value.length() > MAX_LENGTH) {
             throw new IllegalArgumentException("Phone must be less than " + MAX_LENGTH + " characters");
