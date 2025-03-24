@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.RemoveSessionAuthJwtOut;
+import com.ndhuy.auth.authentication.application.dto.RemoveSessionJwtOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
 import com.ndhuy.auth.authentication.application.service.RemoveSessionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
@@ -34,11 +34,12 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
      * @return RemoveSessionAuthJwtOut indicating the deletion result.
      */
     @Override
-    public RemoveSessionAuthJwtOut doMain(String jwt) {
+    public RemoveSessionJwtOut doMain(String jwt) {
+        log.info("remove session jwt: "+ jwt);
         var username = jwtService.getUsername(jwt);
         removeSessionAuth(jwt);
         removeSessionUserAuth(jwt, username);
-        return RemoveSessionAuthJwtOut.builder().isDone(true).build();
+        return RemoveSessionJwtOut.builder().isDone(true).build();
     }
 
     /**
@@ -48,6 +49,7 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
      * @throws JwtNotFoundException if the JWT is not found.
      */
     private void removeSessionAuth(String jwt) {
+        log.info("remove session auth: "+ jwt);
         var sessionJwt = sessionAuthJwtDao.findById(jwt);
         if (Objects.isNull(jwt)) {
             throw new JwtNotFoundException();
@@ -63,6 +65,7 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
      * @throws JwtNotFoundException if the JWT is not found for the user.
      */
     private void removeSessionUserAuth(String jwt, String username) {
+        log.info("remove session user auth: "+ jwt +"-"+ username);
         var sessionUser = authSessionUserDao.findById(username);
         if (Objects.isNull(sessionUser)) {
             throw new JwtNotFoundException();

@@ -12,8 +12,10 @@ import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionUserDao;
 
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class QuerySessionAuthImpl implements QuerySesssionService {
     @Resource
     AuthSessionJwtDao sessionAuthDao;
@@ -35,6 +37,7 @@ public class QuerySessionAuthImpl implements QuerySesssionService {
      */
     @Override
     public GetSesssionAuthOut getSessionAuth(String jwt) {
+        log.info("get session auth: " + jwt);
         var sessionAuth = sessionAuthDao.findById(jwt);
 
         Objects.requireNonNull(sessionAuth, "Session Authentication is null");
@@ -51,6 +54,7 @@ public class QuerySessionAuthImpl implements QuerySesssionService {
      */
     @Override
     public GetInfoUserSessionOut getUserInfoSession(String jwt) {
+        log.info("get user info session: " + jwt);
         var username = jwtService.getUsername(jwt);
 
         var userInfo = authSessionUserDao.findById(username);

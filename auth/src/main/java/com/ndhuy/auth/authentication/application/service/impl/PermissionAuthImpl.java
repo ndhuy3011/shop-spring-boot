@@ -5,8 +5,8 @@ import java.util.Objects;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.authentication.application.dto.AddSessionAuthJwtIn;
-import com.ndhuy.auth.authentication.application.dto.AddSessionAuthUserIn;
+import com.ndhuy.auth.authentication.application.dto.AddSessionJwtIn;
+import com.ndhuy.auth.authentication.application.dto.AddSessionUserIn;
 import com.ndhuy.auth.authentication.application.dto.PermissionIn;
 import com.ndhuy.auth.authentication.application.dto.PermissionOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
@@ -51,16 +51,16 @@ public class PermissionAuthImpl implements PermissionService {
      * @throws PasswordRuntimeException if the password is incorrect.
      */
     public PermissionOut doMain(@Valid PermissionIn cplIn) {
-
+        log.info("Permission Auth: " + cplIn.getUsername());
         var permission = generatorUser(cplIn);
-
-        addSessionJwtAuth(
-                AddSessionAuthJwtIn.builder().jwtSession(permission.getJwt()).expiresAt(permission.getExpiresAt())
-                        .issueAt(permission.getIssueAt()).jwtRefresh(permission.getJwtRefresh()).build());
-
-        addSessionUserAuth(AddSessionAuthUserIn.builder()
+        // Add Jwt in Session User
+        addSessionUserAuth(AddSessionUserIn.builder()
                 .jwtSession(permission.getJwt())
                 .username(cplIn.getUsername()).build());
+
+        addSessionJwtAuth(
+                AddSessionJwtIn.builder().jwtSession(permission.getJwt()).expiresAt(permission.getExpiresAt())
+                        .issueAt(permission.getIssueAt()).jwtRefresh(permission.getJwtRefresh()).build());
 
         return permission;
     }
@@ -76,7 +76,7 @@ public class PermissionAuthImpl implements PermissionService {
      * @throws PasswordRuntimeException if the password does not match.
      */
     private PermissionOut generatorUser(@Valid PermissionIn cplIn) {
-        log.info(log.getName() + " Service Domain");
+        log.info(" generator user: " + cplIn.getUsername());
 
         var userDetails = queryUserService.loadUserByUsername(cplIn.getUsername());
 
@@ -105,8 +105,8 @@ public class PermissionAuthImpl implements PermissionService {
      * @throws JwtExistException If a JWT with the same ID already exists. This
      *                           exception is thrown by the checkMain method.
      */
-    private void addSessionJwtAuth(@Valid AddSessionAuthJwtIn cplIn) {
-
+    private void addSessionJwtAuth(@Valid AddSessionJwtIn cplIn) {
+        log.info("add session jwt auth: " + cplIn.toString());
         if (Objects.nonNull(sessionAuthDao.findById(cplIn.getJwtSession()))) {
             throw new JwtExistException();
         }
@@ -122,7 +122,9 @@ public class PermissionAuthImpl implements PermissionService {
      *
      * @param cplIn The input DTO containing the username and JWT session ID.
      */
-    private void addSessionUserAuth(@Valid AddSessionAuthUserIn cplIn) {
+    private void addSessionUserAuth(@Valid AddSessionUserIn cplIn) {
+        log.info("add session user auth: " + cplIn.toString());
+
         Objects.requireNonNull(cplIn.getUsername(), "Username not null");
         Objects.requireNonNull(cplIn.getJwtSession(), "JWT not null");
 

@@ -1,6 +1,6 @@
 package com.ndhuy.auth.authentication.application.service;
 
-import com.ndhuy.auth.authentication.application.dto.RemoveSessionAuthJwtOut;
+import com.ndhuy.auth.authentication.application.dto.RemoveSessionJwtOut;
 
 public interface RemoveSessionService {
     /**
@@ -9,5 +9,5 @@ public interface RemoveSessionService {
      * @param jwt The JWT to be deleted.
      * @return RemoveSessionAuthJwtOut indicating the deletion result.
      */
-    RemoveSessionAuthJwtOut doMain(String jwt);
+    RemoveSessionJwtOut doMain(String jwt);
 }

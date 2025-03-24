@@ -36,7 +36,7 @@ public class JwtAuthImpl implements JwtService {
      */
     @Override
     public PermissionOut generatorJWT(GetInfoUserOut cplIn) {
-        log.info(log.getName() + " generator JWT ");
+        log.info(" generator JWT: " + cplIn.toString());
         var issueAt = Instant.now();
         var expiresAt = issueAt.plus(Duration.ofHours(1));
         // Build the claims for the access token. Claims are key-value pairs that
@@ -59,8 +59,8 @@ public class JwtAuthImpl implements JwtService {
                 .build();
 
         return PermissionOut.builder()
-                .jwt(getTokenValue(jwtClaim))
-                .jwtRefresh(getTokenValue(jwtRefreshClaim))
+                .jwt(encodeTokenValue(jwtClaim))
+                .jwtRefresh(encodeTokenValue(jwtRefreshClaim))
                 .issueAt(issueAt.toString())
                 .expiresAt(expiresAt.toString()).build();
 
@@ -72,7 +72,7 @@ public class JwtAuthImpl implements JwtService {
      * @param jwtClaimsSet The set of claims to be encoded into the JWT.
      * @return The JWT token string.
      */
-    private String getTokenValue(JwtClaimsSet jwtClaimsSet) {
+    private String encodeTokenValue(JwtClaimsSet jwtClaimsSet) {
         return jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
     }
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ndhuy.auth.authentication.application.dto.GetInfoUserSessionOut;
-import com.ndhuy.auth.authentication.application.dto.RemoveSessionAuthJwtOut;
+import com.ndhuy.auth.authentication.application.dto.RemoveSessionJwtOut;
 import com.ndhuy.auth.authentication.application.service.QuerySesssionService;
 import com.ndhuy.auth.authentication.application.service.RemoveSessionService;
 
@@ -24,7 +24,7 @@ public class AuthenticationRestPrivate {
     @Resource QuerySesssionService querySesssionAuth;
 
     @PostMapping("remove-user")
-    public ResponseEntity<RemoveSessionAuthJwtOut> postVerifyUser(@RequestHeader(value = "Authorization") String jwt) {
+    public ResponseEntity<RemoveSessionJwtOut> postVerifyUser(@RequestHeader(value = "Authorization") String jwt) {
         return ResponseEntity.ok().body(removeSessionAuth.doMain(jwt));
     }
 
