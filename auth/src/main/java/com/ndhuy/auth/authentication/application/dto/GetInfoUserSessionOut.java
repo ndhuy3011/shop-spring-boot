@@ -7,15 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class AddSessionAuthJwtIn {
+public class GetInfoUserSessionOut {
     @NotEmpty
-    private String jwtSession;
-    private String jwtRefresh;
-    private String issueAt;
-    private String expiresAt;
+    private String fullName;
+    @NotEmpty
+    private String email;
 }

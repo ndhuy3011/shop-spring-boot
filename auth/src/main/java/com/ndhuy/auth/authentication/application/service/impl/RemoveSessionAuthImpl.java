@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ndhuy.auth.authentication.application.dto.RemoveSessionAuthJwtOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
-import com.ndhuy.auth.authentication.application.service.RemoveSessionAuth;
+import com.ndhuy.auth.authentication.application.service.RemoveSessionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionUserDao;
 import com.ndhuy.auth.exception.domain.JwtNotFoundException;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class RemoveSessionAuthImpl implements RemoveSessionAuth {
+public class RemoveSessionAuthImpl implements RemoveSessionService {
     @Resource
     AuthSessionJwtDao sessionAuthJwtDao;
 

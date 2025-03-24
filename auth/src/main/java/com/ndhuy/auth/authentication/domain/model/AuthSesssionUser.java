@@ -20,11 +20,25 @@ public class AuthSesssionUser {
 
     @Id
     private String username;
+    private String fullName;
+    private String email;
+    private Set<String> jwtSessionIds;
+    
+    private AuthSesssionUser(String username, String fullName, String email) {
+        this.username = username;
+        this.fullName = fullName;
+        this.email = email;
+        this.jwtSessionIds = new HashSet<>();
+    }
 
-    Set<String> jwtSessionIds;
+
+    public static AuthSesssionUser of(String username) {
+        return new AuthSesssionUser(username, "", "");
+    }
 
 
-    public static AuthSesssionUser of(String username){
-        return new AuthSesssionUser(username,new HashSet<>());
+
+    public static AuthSesssionUser of(String username, String fullName, String email) {
+        return new AuthSesssionUser(username, fullName, email);
     }
 }

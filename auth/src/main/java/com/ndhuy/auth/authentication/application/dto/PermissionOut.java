@@ -13,6 +13,7 @@ import lombok.Setter;
 @Builder
 public class PermissionOut {
    private String jwt;
+   private String jwtRefresh;
    private String issueAt;
    private String expiresAt;
 }

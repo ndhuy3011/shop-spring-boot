@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class PermissionServiceImpl implements PermissionService {
+public class PermissionAuthImpl implements PermissionService {
 
     @Resource
     QueryUserService queryUserService;
@@ -56,7 +56,7 @@ public class PermissionServiceImpl implements PermissionService {
 
         addSessionJwtAuth(
                 AddSessionAuthJwtIn.builder().jwtSession(permission.getJwt()).expiresAt(permission.getExpiresAt())
-                        .issueAt(permission.getIssueAt()).username(cplIn.getUsername()).build());
+                        .issueAt(permission.getIssueAt()).jwtRefresh(permission.getJwtRefresh()).build());
 
         addSessionUserAuth(AddSessionAuthUserIn.builder()
                 .jwtSession(permission.getJwt())
@@ -90,13 +90,7 @@ public class PermissionServiceImpl implements PermissionService {
 
         // Generate JWT token.
         var jwt = jwtService.generatorJWT(user);
-        // Store JWT session information.
-        addSessionJwtAuth(AddSessionAuthJwtIn
-                .builder()
-                .jwtSession(jwt.getJwt())
-                .expiresAt(jwt.getExpiresAt())
-                .issueAt(jwt.getIssueAt())
-                .build());
+
         return jwt;
     }
 
@@ -111,12 +105,14 @@ public class PermissionServiceImpl implements PermissionService {
      * @throws JwtExistException If a JWT with the same ID already exists. This
      *                           exception is thrown by the checkMain method.
      */
-    private void addSessionJwtAuth(@Valid AddSessionAuthJwtIn cpilIn) {
+    private void addSessionJwtAuth(@Valid AddSessionAuthJwtIn cplIn) {
 
-        if (Objects.nonNull(sessionAuthDao.findById(cpilIn.getJwtSession()))) {
+        if (Objects.nonNull(sessionAuthDao.findById(cplIn.getJwtSession()))) {
             throw new JwtExistException();
         }
-        sessionAuthDao.insert(new AuthSessionJwt(cpilIn.getJwtSession(), cpilIn.getIssueAt(), cpilIn.getExpiresAt()));
+
+        sessionAuthDao.insert(new AuthSessionJwt(cplIn.getJwtSession(), cplIn.getJwtRefresh(), cplIn.getIssueAt(),
+                cplIn.getExpiresAt()));
 
     }
 
@@ -130,16 +126,21 @@ public class PermissionServiceImpl implements PermissionService {
         Objects.requireNonNull(cplIn.getUsername(), "Username not null");
         Objects.requireNonNull(cplIn.getJwtSession(), "JWT not null");
 
-        var user = authSessionUserDao.findById(cplIn.getUsername());
-        if (Objects.isNull(user)) {
-            user = AuthSesssionUser.of(cplIn.getUsername());
+        var sessionUser = authSessionUserDao.findById(cplIn.getUsername());
+        if (Objects.isNull(sessionUser)) {
+
+            // Get user information.
+            var user = queryUserService.getUser(cplIn.getUsername());
+            sessionUser = AuthSesssionUser.of(cplIn.getUsername(), user.getFullName(), user.getEmail());
         }
-        var isJWT = user.getJwtSessionIds().contains(cplIn.getUsername());
+        var isJWT = sessionUser.getJwtSessionIds().contains(cplIn.getUsername());
         if (isJWT) {
             throw new JwtExistException();
         }
-        user.getJwtSessionIds().add(cplIn.getJwtSession());
 
+        sessionUser.getJwtSessionIds().add(cplIn.getJwtSession());
+
+        authSessionUserDao.update(cplIn.getUsername(), sessionUser);
     }
 
 }
