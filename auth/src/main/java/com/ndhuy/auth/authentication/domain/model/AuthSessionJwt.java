@@ -1,7 +1,5 @@
 package com.ndhuy.auth.authentication.domain.model;
 
-import java.util.UUID;
-
 import org.springframework.data.redis.core.RedisHash;
 
 import jakarta.persistence.Id;
