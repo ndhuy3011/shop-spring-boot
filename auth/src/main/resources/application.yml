@@ -17,4 +17,10 @@ spring:
         hibernate:
             ddl-auto: update
         show-sql: true
-
+    data:
+        redis: # Cấu hình Redis
+            host: localhost # Địa chỉ của Redis server
+            port: 6379 # Port của Redis server
+            password: # Mật khẩu (nếu có)
+            database: 0 # Chọn database (mặc định là 0)
+            timeout: 2000 # Timeout cho các operation (ms)
