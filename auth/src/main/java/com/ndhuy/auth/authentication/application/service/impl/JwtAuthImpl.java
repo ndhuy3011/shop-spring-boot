@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
-import com.ndhuy.auth.user.application.dto.GetInfoUserOut;
+import com.ndhuy.auth.user.application.dto.GetInfoAccountDto.GetInfoUserOut;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

@@ -61,4 +61,9 @@ public class RoleDao implements IRoleDao {
         return roleRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Role findById(String id) {
+        return findById(RoleKey.of(id));
+    }
+
 }

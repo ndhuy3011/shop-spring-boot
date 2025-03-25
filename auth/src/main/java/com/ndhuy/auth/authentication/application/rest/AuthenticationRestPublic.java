@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionIn;
 import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
 import com.ndhuy.auth.authentication.application.service.PermissionService;
-import com.ndhuy.auth.user.application.dto.OpenAccountIn;
-import com.ndhuy.auth.user.application.dto.OpenAccountOut;
+import com.ndhuy.auth.user.application.dto.AddAcountDto.OpenAccountIn;
+import com.ndhuy.auth.user.application.dto.AddAcountDto.OpenAccountOut;
 import com.ndhuy.auth.user.application.service.OpenAccountService;
 
 import jakarta.annotation.Resource;
