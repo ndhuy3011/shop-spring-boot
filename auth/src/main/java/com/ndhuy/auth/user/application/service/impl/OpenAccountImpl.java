@@ -1,7 +1,5 @@
 package com.ndhuy.auth.user.application.service.impl;
 
-import java.util.Objects;
-
 import org.springframework.stereotype.Service;
 
 import com.ndhuy.auth.exception.domain.NotFondUserException; // Corrected spelling to NotFondUserException
