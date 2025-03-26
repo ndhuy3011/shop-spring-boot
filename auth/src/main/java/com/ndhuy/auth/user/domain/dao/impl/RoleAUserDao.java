@@ -1,6 +1,8 @@
 package com.ndhuy.auth.user.domain.dao.impl;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +60,8 @@ public class RoleAUserDao implements IRoleAUserDao {
      */
     @Override
     public RoleAUser delete(RoleAUser input) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        roleAUserRepository.delete(input);
+        return input;
     }
 
     
@@ -69,6 +72,24 @@ public class RoleAUserDao implements IRoleAUserDao {
     @Override
     public RoleAUser findById(RoleAUserKey id) {
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+
+    @Override
+    public Optional<RoleAUser> findByRoleId(String roleId) {
+       return roleAUserRepository.findByRoleId(roleId);
+    }
+
+
+    @Override
+    public Long countByRoleId(String roleId) {
+        return roleAUserRepository.countByIdRole(roleId);
+    }
+
+
+    @Override
+    public void delete(List<RoleAUser> input) {
+        roleAUserRepository.deleteAll(input);
     }
 
 }
