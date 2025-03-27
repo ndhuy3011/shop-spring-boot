@@ -28,10 +28,25 @@ public class RemoveRoleDto {
         boolean isDone;
     }
 
-    public static class RomoveRoleUserIn{
-
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class RemoveRoleUserIn {
+        private String idRole;
+        private String idUser;
     }
-    public static class RomoveRoleUserOut{
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    @Builder
+    public static class RemoveRoleUserOut {
+        private String idRole;
+        private String idUser;
     }
 }

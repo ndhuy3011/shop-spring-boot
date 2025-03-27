@@ -6,7 +6,7 @@ import com.ndhuy.auth.exception.domain.NotFondUserException;
 import com.ndhuy.auth.user.application.dto.GetInfoAccountDto.GetInfoUserOut;
 
 public interface QueryUserService extends UserDetailsService {
-        /**
+    /**
      * Retrieves user information by username.
      * If the user is not found, a NotFondUserException is thrown.
      *
@@ -15,4 +15,14 @@ public interface QueryUserService extends UserDetailsService {
      * @throws NotFondUserException if the user is not found.
      */
     GetInfoUserOut getUser(String username);
+
+    /**
+     * Retrieves user information by userkey.
+     * If the user is not found, a NotFondUserException is thrown.
+     *
+     * @param userkey The userkey of the user to retrieve.
+     * @return GetInfoUserOut containing the user's ID and userkey.
+     * @throws NotFondUserException if the user is not found.
+     */
+    GetInfoUserOut getUserByKey(String userKey);
 }

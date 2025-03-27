@@ -9,6 +9,7 @@ import com.ndhuy.auth.user.application.dto.GetInfoAccountDto.GetInfoUserOut;
 import com.ndhuy.auth.user.application.service.QueryUserService;
 import com.ndhuy.auth.user.domain.dao.IUserDao;
 import com.ndhuy.auth.user.domain.model.UserDetail;
+import com.ndhuy.auth.user.domain.model.key.UserKey;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,27 @@ public class QueryUserServiceImpl implements QueryUserService {
     public GetInfoUserOut getUser(String username) {
         log.info("Get user: {}", username);
         var user = userDao.findByUsername(username);
+        if (user == null) {
+            throw new NotFondUserException();
+        }
+        return GetInfoUserOut.builder()
+                .id(user.getId().value())
+                .username(user.getUsername().value())
+                .build();
+    }
+
+    /**
+     * Retrieves user information by userkey.
+     * If the user is not found, a NotFondUserException is thrown.
+     *
+     * @param userkey The userkey of the user to retrieve.
+     * @return GetInfoUserOut containing the user's ID and userkey.
+     * @throws NotFondUserException if the user is not found.
+     */
+    @Override
+    public GetInfoUserOut getUserByKey(String userKey) {
+        log.info("Get user: {}", userKey);
+        var user = userDao.findById(UserKey.fromString(userKey));
         if (user == null) {
             throw new NotFondUserException();
         }
