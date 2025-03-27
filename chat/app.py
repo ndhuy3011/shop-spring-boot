@@ -4,4 +4,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    import ollama
+
+    response = ollama.chat(model='deepseek-r1:7b', messages=[
+    {
+        'role': 'user',
+        'content': 'Why is the sky blue?',
+    },
+    ])
+
+    return response['message']['content']
