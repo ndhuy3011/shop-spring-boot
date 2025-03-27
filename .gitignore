@@ -1,1 +1,6 @@
 rsa/*
+chat/analy/*
+chat/data/*
+chat/.venv/*
+chat/.ipynb_checkpoints/*
+chat/__pycache__/*
