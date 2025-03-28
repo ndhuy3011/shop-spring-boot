@@ -13,7 +13,8 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - ./vault-config:/vault/config
+      - vault_data:/vault/data:rw
+      - ./data/vault-config:/vault/config
     command: "server"
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ công
   postgres:
@@ -26,7 +27,7 @@ services:
     ports:
       - "54320:5432"  # Map cổng host 5432 tới cổng container 5432
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Lưu trữ dữ liệu persistent
+      - postgres_data:/var/lib/postgresql/data # Lưu trữ dữ liệu persistent
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ công
   redis:
     image: redis:latest
@@ -34,10 +35,10 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis-data:/data
+      - redis_data:/data
     command: redis-server
     restart: unless-stopped  # Tự động khởi động lại trừ khi bị dừng thủ côn
 volumes:
-  vault-data:
-  redis-data:
-  postgres_data:  # Định nghĩa volume để lưu dữ liệu
+  vault_data:
+  postgres_data:
+  redis_data:

@@ -1,6 +1,8 @@
 package com.ndhuy.auth.user.domain.dao.impl;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +28,14 @@ public class RoleAUserDao implements IRoleAUserDao {
     @Resource
     IUserDao userDao;
 
-    
-    /** 
-     * @param input
-     * @return RoleAUser
+    /**
+     * Inserts a new RoleAUser (role-user association) into the database.
+     *
+     * @param input The RoleAUser object to insert.
+     * @return The inserted RoleAUser object.
+     * @throws NullPointerException if the role or user associated with the
+     *                              RoleAUser
+     *                              does not exist.
      */
     @Override
     public RoleAUser insert(RoleAUser input) {
@@ -38,11 +44,15 @@ public class RoleAUserDao implements IRoleAUserDao {
         return roleAUserRepository.save(input);
     }
 
-    
-    /** 
-     * @param id
-     * @param input
-     * @return RoleAUser
+    /**
+     * Updates an existing RoleAUser (role-user association) in the database.
+     *
+     * @param id    The RoleAUserKey of the RoleAUser object to update.
+     * @param input The updated RoleAUser object.
+     * @return The updated RoleAUser object.
+     * @throws NullPointerException if the role or user associated with the
+     *                              RoleAUser
+     *                              does not exist.
      */
     @Override
     public RoleAUser update(RoleAUserKey id, RoleAUser input) {
@@ -51,24 +61,47 @@ public class RoleAUserDao implements IRoleAUserDao {
         return roleAUserRepository.save(input);
     }
 
-    
-    /** 
-     * @param input
-     * @return RoleAUser
+    /**
+     * Deletes a RoleAUser (role-user association) from the database.
+     *
+     * @param input The RoleAUser object to delete.
+     * @return The deleted RoleAUser object.
      */
     @Override
     public RoleAUser delete(RoleAUser input) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        roleAUserRepository.delete(input);
+        return input;
     }
 
-    
-    /** 
-     * @param id
-     * @return RoleAUser
+    /**
+     * Finds a RoleAUser (role-user association) by its ID.
+     *
+     * @param id The RoleAUserKey of the RoleAUser object to find.
+     * @return The RoleAUser object with the given ID, or null if not found.
      */
     @Override
     public RoleAUser findById(RoleAUserKey id) {
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return roleAUserRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Optional<RoleAUser> findByRoleId(String roleId) {
+        return roleAUserRepository.findByRoleId(roleId);
+    }
+
+    @Override
+    public Long countByRoleId(String roleId) {
+        return roleAUserRepository.countByIdRole(roleId);
+    }
+
+    /**
+     * Deletes a list of RoleAUser (role-user associations) from the database.
+     *
+     * @param input A list of RoleAUser objects to delete.
+     */
+    @Override
+    public void delete(List<RoleAUser> input) {
+        roleAUserRepository.deleteAll(input);
     }
 
 }

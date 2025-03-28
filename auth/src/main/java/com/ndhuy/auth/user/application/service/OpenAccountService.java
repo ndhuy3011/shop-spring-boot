@@ -1,11 +1,17 @@
 package com.ndhuy.auth.user.application.service;
 
-import com.ndhuy.auth.user.application.dto.OpenAccountIn;
-import com.ndhuy.auth.user.application.dto.OpenAccountOut;
+import com.ndhuy.auth.exception.domain.NotFondUserException;
+import com.ndhuy.auth.user.application.dto.AddAcountDto.OpenAccountIn;
+import com.ndhuy.auth.user.application.dto.AddAcountDto.OpenAccountOut;
 
 public interface OpenAccountService {
-
+    /**
+     * Opens a new user account.
+     *
+     * @param userDto The data for opening the user account.
+     * @return The result of the account opening operation.
+     * @throws NotFondUserException if the username already exists.
+     */
     OpenAccountOut doMain(OpenAccountIn cplIn);
 
-    void checkMain(OpenAccountIn cplIn);
 }

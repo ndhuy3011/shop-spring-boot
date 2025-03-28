@@ -11,7 +11,7 @@ import com.ndhuy.auth.authentication.application.service.QueryRSASerivce;
 import jakarta.annotation.Resource;
 
 @RestController
-@RequestMapping("api/public/rsa")
+@RequestMapping("api/public/auth/rsa")
 public class RSARestPublic {
     @Resource
     QueryRSASerivce queryRsa;
