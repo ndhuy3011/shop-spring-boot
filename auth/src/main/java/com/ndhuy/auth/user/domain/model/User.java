@@ -37,8 +37,7 @@ public class User {
 
     // EmbeddedId indicates that this is a composite primary key
     @EmbeddedId
-    @AttributeOverride(name = "value", column = @Column(name = "user_no")) // Override the column name for the 'value'
-                                                                           // field of UserKey
+    @AttributeOverride(name = "value", column = @Column(name = "user_no")) // Override the column name for the 'value' field of UserKey
     private UserKey id;
 
     // Embedded indicates that Username is a value object
