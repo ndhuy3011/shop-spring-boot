@@ -1,7 +1,8 @@
-package com.ndhuy.product.item.domain;
+package com.ndhuy.product.item.domain.model;
 
-import com.ndhuy.product.item.domain.key.ItemImageKey;
-import com.ndhuy.product.item.valueobject.itemImage.ItemImagePath;
+import com.ndhuy.app.EntityBase;
+import com.ndhuy.product.item.domain.model.key.ItemImageKey;
+import com.ndhuy.product.item.domain.valueobject.itemImage.ItemImagePath;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemImage {
+public class ItemImage extends EntityBase{
     @EmbeddedId
     private ItemImageKey itemImageKey;
     @Embedded

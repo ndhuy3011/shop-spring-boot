@@ -1,6 +1,6 @@
-package com.ndhuy.product.item.domain.key;
+package com.ndhuy.product.item.domain.model.key;
 
-import com.ndhuy.product.item.valueobject.item.ItemSeria;
+import com.ndhuy.product.item.domain.valueobject.item.ItemSeria;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;

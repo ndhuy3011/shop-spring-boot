@@ -1,12 +1,13 @@
-package com.ndhuy.product.item.domain;
+package com.ndhuy.product.item.domain.model;
 
-import com.ndhuy.product.item.domain.key.ItemKey;
-import com.ndhuy.product.item.valueobject.item.ItemAvatar;
-import com.ndhuy.product.item.valueobject.item.ItemDesc;
-import com.ndhuy.product.item.valueobject.item.ItemDescShort;
-import com.ndhuy.product.item.valueobject.item.ItemName;
-import com.ndhuy.product.item.valueobject.item.ItemPrice;
-import com.ndhuy.product.item.valueobject.item.ItemQuantity;
+import com.ndhuy.app.EntityBase;
+import com.ndhuy.product.item.domain.model.key.ItemKey;
+import com.ndhuy.product.item.domain.valueobject.item.ItemAvatar;
+import com.ndhuy.product.item.domain.valueobject.item.ItemDesc;
+import com.ndhuy.product.item.domain.valueobject.item.ItemDescShort;
+import com.ndhuy.product.item.domain.valueobject.item.ItemName;
+import com.ndhuy.product.item.domain.valueobject.item.ItemPrice;
+import com.ndhuy.product.item.domain.valueobject.item.ItemQuantity;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
@@ -25,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Item {
+public class Item extends EntityBase {
     @EmbeddedId
     @AttributeOverride(name = "value", column = @Column(name = "item_no"))
     private ItemKey id;

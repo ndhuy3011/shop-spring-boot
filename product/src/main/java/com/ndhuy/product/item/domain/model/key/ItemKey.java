@@ -1,4 +1,4 @@
-package com.ndhuy.product.item.domain.key;
+package com.ndhuy.product.item.domain.model.key;
 
 public record ItemKey(String value) {
     public ItemKey{
