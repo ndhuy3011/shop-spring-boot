@@ -1,4 +1,6 @@
-package com.ndhuy.auth.exception.domain;
+package com.ndhuy.app.exception.application.runtime;
+
+
 
 import java.util.Locale;
 

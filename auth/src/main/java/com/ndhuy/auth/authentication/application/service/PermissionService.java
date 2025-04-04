@@ -1,8 +1,8 @@
 package com.ndhuy.auth.authentication.application.service;
 
+import com.ndhuy.app.exception.application.runtime.UnauthorizedRuntimeException;
 import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionIn;
 import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionOut;
-import com.ndhuy.auth.exception.domain.PasswordRuntimeException;
 
 public interface PermissionService {
 
@@ -11,7 +11,7 @@ public interface PermissionService {
      *
      * @param cplIn contains user login information (username and password).
      * @return PermissionOut containing JWT information (token, expiration time, etc.).
-     * @throws PasswordRuntimeException if the password is incorrect.
+     * @throws UnauthorizedRuntimeException if the password is incorrect.
      */
     PermissionOut doMain(PermissionIn cplIn);
 }

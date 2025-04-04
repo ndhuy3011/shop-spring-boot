@@ -2,9 +2,9 @@ package com.ndhuy.auth.user.application.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.ndhuy.app.exception.application.runtime.ExistRuntimeException;
 import com.ndhuy.auth.user.application.dto.AddRoleDto.CreateRoleIn;
 import com.ndhuy.auth.user.application.dto.AddRoleDto.CreateRoleOut;
-import com.ndhuy.auth.user.application.exception.CreateRoleExistException;
 import com.ndhuy.auth.user.application.service.AddRoleService;
 import com.ndhuy.auth.user.domain.dao.impl.RoleDao;
 import com.ndhuy.auth.user.domain.model.Role;
@@ -47,12 +47,12 @@ public class AddRoleImpl implements AddRoleService {
      *
      * @param cpln {@link CreateRoleIn} containing the role information to be
      *             created.
-     * @throws CreateRoleExistException If a role with the given ID already exists.
+     * @throws ExistRuntimeException If a role with the given ID already exists.
      */
     private void checkMain(CreateRoleIn cpln) {
         var role = roleDao.findById(cpln.getId());
         if (role != null) {
-            throw new CreateRoleExistException();
+            throw new ExistRuntimeException("role.exist", cpln.getId());
         }
     }
 }

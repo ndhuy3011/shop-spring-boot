@@ -13,7 +13,7 @@ import java.util.Base64;
 
 import org.apache.logging.log4j.util.Strings;
 
-import com.ndhuy.auth.exception.domain.PrivateKeyRetrievalException;
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +53,7 @@ public class EncryptionUtils {
      */
     public static PrivateKey loadKeyWithBase64(String base64) {
         if (Strings.isEmpty(base64) || Strings.isBlank(base64)) {
-            throw new PrivateKeyRetrievalException(" load Key With Base64 String is null");
+            throw new NotFoundRuntimeException(" private_key.load_key_base64");
         }
         byte[] decodedPrivateKey = Base64.getDecoder().decode(base64);
         String rsaKey = new String(decodedPrivateKey, StandardCharsets.UTF_8);
@@ -78,7 +78,7 @@ public class EncryptionUtils {
                 return readPkcs1PrivateKey(Base64.getDecoder().decode(keyData));
             } catch (GeneralSecurityException e) {
                 log.error("Error loading key", e);
-                throw new PrivateKeyRetrievalException("Failed to load key", e);
+                throw new NotFoundRuntimeException("private_key.load_key_pkcs1");
             }
         }
 
@@ -90,7 +90,7 @@ public class EncryptionUtils {
             return readPkcs8PrivateKey(Base64.getDecoder().decode(keyData));
         } catch (GeneralSecurityException e) {
             log.error("Error loading key", e);
-            throw new PrivateKeyRetrievalException("Failed to load key", e);
+            throw new NotFoundRuntimeException("private_key.load_key_pkcs8");
         }
 
     }
@@ -106,7 +106,7 @@ public class EncryptionUtils {
         try {
             return keyFactory.generatePrivate(keySpec);
         } catch (InvalidKeySpecException e) {
-            throw new PrivateKeyRetrievalException("Unexpected key format!", e);
+            throw new NotFoundRuntimeException("private_key.format");
         }
     }
 

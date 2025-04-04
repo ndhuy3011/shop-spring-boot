@@ -1,10 +1,10 @@
 package com.ndhuy.auth.user.application.service;
 
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleIn;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleOut;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleUserIn;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleUserOut;
-import com.ndhuy.auth.user.application.exception.RoleNotFoundException;
 
 public interface RemoveRoleService {
 
@@ -15,7 +15,7 @@ public interface RemoveRoleService {
      *             beremoved.
      * @return {@link RemoveRoleOut} indicating whether the role was successfully
      *         removed.
-     * @throws RoleNotFoundException If the role does not exist or is still assigned
+     * @throws NotFoundRuntimeException If the role does not exist or is still assigned
      *                               to users.
      */
     RemoveRoleOut doMain(RemoveRoleIn cpln);
@@ -27,7 +27,7 @@ public interface RemoveRoleService {
      *             to disassociate.
      * @return {@link RemoveRoleUserOut} containing the IDs of the role and user
      *         that were disassociated.
-     * @throws RoleNotFoundException If the role-user association does not exist.
+     * @throws NotFoundRuntimeException If the role-user association does not exist.
      *                               (Note: The name is slightly misleading, might
      *                               want to create a new exception)
      */

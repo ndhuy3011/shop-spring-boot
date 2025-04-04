@@ -8,7 +8,7 @@ import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
 
-import com.ndhuy.auth.exception.domain.PublicKeyRetrievalException;
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,10 +23,10 @@ public class DecryptionUtils {
      */
     public static PublicKey loadPublicKeyWithPrivaKey(PrivateKey privateKey) {
         if (privateKey == null) {
-            throw new PublicKeyRetrievalException("PrivateKey cannot be null");
+            throw new NotFoundRuntimeException("private_key.not_null");
         }
         if (!(privateKey instanceof RSAPrivateCrtKey)) {
-            throw new PublicKeyRetrievalException("PrivateKey must be instance of RSAPrivateCrtKey");
+            throw new NotFoundRuntimeException("private_key.instance");
         }
         return loadPublicKeyWithRSAPrivateCrtKey((RSAPrivateCrtKey) privateKey);
     }
@@ -36,10 +36,9 @@ public class DecryptionUtils {
      * @return PublicKey
      * @throws PublicKeyRetrievalException
      */
-    public static PublicKey loadPublicKeyWithRSAPrivateCrtKey(RSAPrivateCrtKey privateKey)
-            throws PublicKeyRetrievalException {
+    public static PublicKey loadPublicKeyWithRSAPrivateCrtKey(RSAPrivateCrtKey privateKey) {
         if (privateKey == null) {
-            throw new PublicKeyRetrievalException("RSAPrivateCrtKey cannot be null");
+            throw new NotFoundRuntimeException("private_key.not_null");
         }
         try {
             KeyFactory kf = KeyFactory.getInstance(privateKey.getAlgorithm());
@@ -49,7 +48,7 @@ public class DecryptionUtils {
             return kf.generatePublic(publicKeySpec);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
             log.error("Error loading public key", e);
-            throw new PublicKeyRetrievalException("Failed to load public key", e);
+            throw new NotFoundRuntimeException("public_key.loading");
         }
 
     }
