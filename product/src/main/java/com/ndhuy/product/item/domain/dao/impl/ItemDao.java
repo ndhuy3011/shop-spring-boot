@@ -6,7 +6,7 @@ import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 import com.ndhuy.product.item.domain.dao.IItemDao;
 import com.ndhuy.product.item.domain.model.Item;
 import com.ndhuy.product.item.domain.model.key.ItemKey;
-import com.ndhuy.product.item.domain.reponsitory.ItemReponsitory;
+import com.ndhuy.product.item.domain.reponsitory.ItemRepository;
 
 import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
@@ -18,11 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ItemDao implements IItemDao {
 
     @Resource
-    ItemReponsitory itemReponsitory;
+    ItemRepository itemRepository;
 
     @Override
     public Item insert(Item input) {
-        itemReponsitory.save(input);
+        itemRepository.save(input);
         return input;
     }
 
@@ -36,7 +36,7 @@ public class ItemDao implements IItemDao {
         item.setDesc(input.getDesc());
         item.setDescShort(input.getDescShort());
         item.setAvatar(input.getAvatar());
-        itemReponsitory.save(item);
+        itemRepository.save(item);
         return item;
 
     }
@@ -44,13 +44,13 @@ public class ItemDao implements IItemDao {
     @Override
     public Item delete(Item input) {
         input.delete();
-        itemReponsitory.save(input);
+        itemRepository.save(input);
         return input;
     }
 
     @Override
     public Item findById(ItemKey id) {
-        return itemReponsitory.findById(id).orElse(null);
+        return itemRepository.findById(id).orElse(null);
     }
 
 }
