@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.exception.domain.NotFondUserException;
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 import com.ndhuy.auth.user.application.dto.GetInfoAccountDto.GetInfoUserOut;
 import com.ndhuy.auth.user.application.service.QueryUserService;
 import com.ndhuy.auth.user.domain.dao.IUserDao;
@@ -26,13 +26,13 @@ public class QueryUserServiceImpl implements QueryUserService {
      *
      * @param username The username of the user to load.
      * @return UserDetails representing the user's details.
-     * @throws UsernameNotFoundException If the user is not found.
+     * @throws NotFoundRuntimeException If the user is not found.
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userDao.findByUsername(username);
         if (user == null) {
-            throw new NotFondUserException();
+            throw new NotFoundRuntimeException("user.not_found", username);
         }
         return UserDetail.of(user);
     }
@@ -43,14 +43,14 @@ public class QueryUserServiceImpl implements QueryUserService {
      *
      * @param username The username of the user to retrieve.
      * @return GetInfoUserOut containing the user's ID and username.
-     * @throws NotFondUserException if the user is not found.
+     * @throws NotFoundRuntimeException if the user is not found.
      */
     @Override
     public GetInfoUserOut getUser(String username) {
         log.info("Get user: {}", username);
         var user = userDao.findByUsername(username);
         if (user == null) {
-            throw new NotFondUserException();
+            throw new NotFoundRuntimeException("user.not_found", username);
         }
         return GetInfoUserOut.builder()
                 .id(user.getId().value())
@@ -64,14 +64,14 @@ public class QueryUserServiceImpl implements QueryUserService {
      *
      * @param userkey The userkey of the user to retrieve.
      * @return GetInfoUserOut containing the user's ID and userkey.
-     * @throws NotFondUserException if the user is not found.
+     * @throws NotFoundRuntimeException if the user is not found.
      */
     @Override
     public GetInfoUserOut getUserByKey(String userKey) {
         log.info("Get user: {}", userKey);
         var user = userDao.findById(UserKey.fromString(userKey));
         if (user == null) {
-            throw new NotFondUserException();
+            throw new NotFoundRuntimeException("user.not_found", userKey);
         }
         return GetInfoUserOut.builder()
                 .id(user.getId().value())

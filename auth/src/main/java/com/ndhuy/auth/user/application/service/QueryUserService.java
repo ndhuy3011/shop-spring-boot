@@ -2,7 +2,7 @@ package com.ndhuy.auth.user.application.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.ndhuy.auth.exception.domain.NotFondUserException;
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 import com.ndhuy.auth.user.application.dto.GetInfoAccountDto.GetInfoUserOut;
 
 public interface QueryUserService extends UserDetailsService {
@@ -12,7 +12,7 @@ public interface QueryUserService extends UserDetailsService {
      *
      * @param username The username of the user to retrieve.
      * @return GetInfoUserOut containing the user's ID and username.
-     * @throws NotFondUserException if the user is not found.
+     * @throws NotFoundRuntimeException if the user is not found.
      */
     GetInfoUserOut getUser(String username);
 
@@ -22,7 +22,7 @@ public interface QueryUserService extends UserDetailsService {
      *
      * @param userkey The userkey of the user to retrieve.
      * @return GetInfoUserOut containing the user's ID and userkey.
-     * @throws NotFondUserException if the user is not found.
+     * @throws NotFoundRuntimeException if the user is not found.
      */
     GetInfoUserOut getUserByKey(String userKey);
 }

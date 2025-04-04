@@ -1,8 +1,8 @@
 package com.ndhuy.auth.user.application.service;
 
+import com.ndhuy.app.exception.application.runtime.ExistRuntimeException;
 import com.ndhuy.auth.user.application.dto.AddRoleDto.CreateRoleIn;
 import com.ndhuy.auth.user.application.dto.AddRoleDto.CreateRoleOut;
-import com.ndhuy.auth.user.application.exception.CreateRoleExistException;
 
 public interface AddRoleService {
 
@@ -12,7 +12,7 @@ public interface AddRoleService {
      * @param cpln the role information to be created. Marked with &#64;Valid to
      *             indicate it will be validated.
      * @return CreateRoleOut containing the created role information.
-     * @throws CreateRoleExistException If a role with the given ID already exists.
+     * @throws ExistRuntimeException If a role with the given ID already exists.
      */
     CreateRoleOut doMain(CreateRoleIn cpln);
 }

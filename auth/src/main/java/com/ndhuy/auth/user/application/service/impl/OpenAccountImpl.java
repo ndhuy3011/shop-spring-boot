@@ -1,8 +1,10 @@
 package com.ndhuy.auth.user.application.service.impl;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
 
-import com.ndhuy.auth.exception.domain.NotFondUserException; // Corrected spelling to NotFondUserException
+import com.ndhuy.app.exception.application.runtime.ExistRuntimeException;
 import com.ndhuy.auth.user.application.dto.AddAcountDto.OpenAccountIn;
 import com.ndhuy.auth.user.application.dto.AddAcountDto.OpenAccountOut;
 import com.ndhuy.auth.user.application.service.OpenAccountService;
@@ -45,13 +47,13 @@ public class OpenAccountImpl implements OpenAccountService {
      * Verifies the data before opening an account.  Specifically, checks if the username already exists.
      *
      * @param userDto The data for the user account to be opened.
-     * @throws NotFondUserException if the username already exists in the system.
+     * @throws ExistRuntimeException if the username already exists in the system.
      */
     private void checkMain(OpenAccountIn userDto) {
-        log.info("Check opening account: {}", userDto); // Improved log message
+        log.info("Check opening account: {}", userDto); 
         User user = userDao.findByUsername(userDto.getUsername());
-        if (user != null) { // Changed from !Objects.isNull(user) to user != null for better readability
-            throw new NotFondUserException(); //Corrected to NotFondUserException
+        if (!Objects.isNull(user)) { 
+            throw new ExistRuntimeException("user.exist", userDto.getUsername()); 
         }
     }
 }

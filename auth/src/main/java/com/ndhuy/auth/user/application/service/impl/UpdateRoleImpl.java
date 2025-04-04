@@ -3,9 +3,9 @@ package com.ndhuy.auth.user.application.service.impl;
 import org.bouncycastle.util.Strings;
 import org.springframework.stereotype.Service;
 
+import com.ndhuy.app.exception.application.runtime.NotChangeRuntimeException;
 import com.ndhuy.auth.user.application.dto.UpdateRoleDto.UpdateRoleIn;
 import com.ndhuy.auth.user.application.dto.UpdateRoleDto.UpdateRoleOut;
-import com.ndhuy.auth.user.application.exception.RoleChangeException;
 import com.ndhuy.auth.user.application.service.QueryRoleService;
 import com.ndhuy.auth.user.application.service.UpdateRoleService;
 import com.ndhuy.auth.user.domain.dao.impl.RoleDao;
@@ -28,7 +28,7 @@ public class UpdateRoleImpl implements UpdateRoleService {
      *
      * @param cpln The input DTO containing the role ID and the new role name.
      * @return An UpdateRoleOut DTO containing the updated role ID and name.
-     * @throws RoleChangeException if the new role name is the same as the old role name.
+     * @throws NotChangeRuntimeException if the new role name is the same as the old role name.
      */
     @Override
     public UpdateRoleOut doMain(UpdateRoleIn cpln) {
@@ -36,14 +36,14 @@ public class UpdateRoleImpl implements UpdateRoleService {
 
         // Check if the new role name is the same as the old role name
         if (Strings.constantTimeAreEqual(role.getNameRole(), cpln.getName())) {
-            throw new RoleChangeException(); // Throw an exception if they are the same
+            throw new NotChangeRuntimeException("role.not_change"); 
         }
 
-        role.setNameRole(cpln.getName()); // Update the role name
+        role.setNameRole(cpln.getName()); 
 
-        roleDao.update(role.getIdRole(), role); // Update the role in the database
+        roleDao.update(role.getIdRole(), role); 
 
-        // Build and return the output DTO
+       
         return UpdateRoleOut.builder().id(cpln.getId()).name(cpln.getName()).build();
     }
 
