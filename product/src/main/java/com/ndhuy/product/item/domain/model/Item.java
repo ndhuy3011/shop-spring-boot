@@ -1,6 +1,7 @@
 package com.ndhuy.product.item.domain.model;
 
 import com.ndhuy.app.EntityBase;
+import com.ndhuy.product.item.domain.model.key.CategoryKey;
 import com.ndhuy.product.item.domain.model.key.ItemKey;
 import com.ndhuy.product.item.domain.valueobject.item.ItemAvatar;
 import com.ndhuy.product.item.domain.valueobject.item.ItemDesc;
@@ -48,4 +49,7 @@ public class Item extends EntityBase {
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "avatar", nullable = true))
     private ItemAvatar avatar;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "category", nullable = true))
+    private CategoryKey categoryKey;
 }
