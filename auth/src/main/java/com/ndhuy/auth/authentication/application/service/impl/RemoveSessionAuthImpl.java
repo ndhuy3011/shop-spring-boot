@@ -5,12 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ndhuy.app.exception.application.runtime.UnauthorizedRuntimeException;
 import com.ndhuy.auth.authentication.application.dto.RemoveSessionDto.RemoveSessionJwtOut;
 import com.ndhuy.auth.authentication.application.service.JwtService;
 import com.ndhuy.auth.authentication.application.service.RemoveSessionService;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionUserDao;
-import com.ndhuy.auth.exception.domain.JwtNotFoundException;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
      */
     @Override
     public RemoveSessionJwtOut doMain(String jwt) {
-        log.info("remove session jwt: "+ jwt);
+        log.info("remove session jwt: " + jwt);
         var username = jwtService.getUsername(jwt);
         removeSessionAuth(jwt);
         removeSessionUserAuth(jwt, username);
@@ -46,13 +46,13 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
      * Deletes JWT session information from storage.
      *
      * @param jwt The JWT to be deleted.
-     * @throws JwtNotFoundException if the JWT is not found.
+     * @throws UnauthorizedRuntimeException if the JWT is not found.
      */
     private void removeSessionAuth(String jwt) {
-        log.info("remove session auth: "+ jwt);
+        log.info("remove session auth: " + jwt);
         var sessionJwt = sessionAuthJwtDao.findById(jwt);
         if (Objects.isNull(jwt)) {
-            throw new JwtNotFoundException();
+            throw new UnauthorizedRuntimeException("jwt.not_found");
         }
         sessionAuthJwtDao.delete(sessionJwt);
     }
@@ -62,13 +62,13 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
      *
      * @param jwt      The JWT to be deleted.
      * @param username The username of the user associated with the JWT.
-     * @throws JwtNotFoundException if the JWT is not found for the user.
+     * @throws UnauthorizedRuntimeException if the JWT is not found for the user.
      */
     private void removeSessionUserAuth(String jwt, String username) {
-        log.info("remove session user auth: "+ jwt +"-"+ username);
+        log.info("remove session user auth: " + jwt + "-" + username);
         var sessionUser = authSessionUserDao.findById(username);
         if (Objects.isNull(sessionUser)) {
-            throw new JwtNotFoundException();
+            throw new UnauthorizedRuntimeException("jwt.not_found");
         }
         Optional<String> sessionJwt = sessionUser.getJwtSessionIds().stream()
                 .filter(jwtId -> jwtId.equals(jwt)) // Filter for the matching JWT.
@@ -77,7 +77,7 @@ public class RemoveSessionAuthImpl implements RemoveSessionService {
         if (sessionJwt.isPresent()) {
             sessionUser.getJwtSessionIds().remove(sessionJwt.get());
         } else {
-            throw new JwtNotFoundException();
+            throw new UnauthorizedRuntimeException("jwt.not_found");
         }
         authSessionUserDao.update(username, sessionUser);
     }

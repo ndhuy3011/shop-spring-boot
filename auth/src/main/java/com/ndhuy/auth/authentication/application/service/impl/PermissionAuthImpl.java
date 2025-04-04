@@ -5,6 +5,8 @@ import java.util.Objects;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
+import com.ndhuy.app.exception.application.runtime.UnauthorizedRuntimeException;
 import com.ndhuy.auth.authentication.application.dto.AddSessionDto.AddSessionJwtIn;
 import com.ndhuy.auth.authentication.application.dto.AddSessionDto.AddSessionUserIn;
 import com.ndhuy.auth.authentication.application.dto.PermissionDto.PermissionIn;
@@ -15,8 +17,6 @@ import com.ndhuy.auth.authentication.domain.dao.AuthSessionJwtDao;
 import com.ndhuy.auth.authentication.domain.dao.AuthSessionUserDao;
 import com.ndhuy.auth.authentication.domain.model.AuthSessionJwt;
 import com.ndhuy.auth.authentication.domain.model.AuthSesssionUser;
-import com.ndhuy.auth.exception.domain.JwtExistException;
-import com.ndhuy.auth.exception.domain.PasswordRuntimeException;
 import com.ndhuy.auth.user.application.service.QueryUserService;
 
 import jakarta.annotation.Resource;
@@ -82,7 +82,7 @@ public class PermissionAuthImpl implements PermissionService {
 
         // Check if the password matches.
         if (!passwordEncoder.matches(cplIn.getPassword(), userDetails.getPassword())) {
-            throw new PasswordRuntimeException();
+            throw new UnauthorizedRuntimeException("password.not_match");
         }
 
         // Get user information.
@@ -108,7 +108,7 @@ public class PermissionAuthImpl implements PermissionService {
     private void addSessionJwtAuth(@Valid AddSessionJwtIn cplIn) {
         log.info("add session jwt auth: " + cplIn.toString());
         if (Objects.nonNull(sessionAuthDao.findById(cplIn.getJwtSession()))) {
-            throw new JwtExistException();
+            throw new NotFoundRuntimeException("jwt.not_found");
         }
 
         sessionAuthDao.insert(new AuthSessionJwt(cplIn.getJwtSession(), cplIn.getJwtRefresh(), cplIn.getIssueAt(),
@@ -125,8 +125,8 @@ public class PermissionAuthImpl implements PermissionService {
     private void addSessionUserAuth(@Valid AddSessionUserIn cplIn) {
         log.info("add session user auth: " + cplIn.toString());
 
-        Objects.requireNonNull(cplIn.getUsername(), "Username not null");
-        Objects.requireNonNull(cplIn.getJwtSession(), "JWT not null");
+        Objects.requireNonNull(cplIn.getUsername(), "username.not_found");
+        Objects.requireNonNull(cplIn.getJwtSession(), "jwt.not_found");
 
         var sessionUser = authSessionUserDao.findById(cplIn.getUsername());
         if (Objects.isNull(sessionUser)) {
@@ -135,12 +135,10 @@ public class PermissionAuthImpl implements PermissionService {
             var user = queryUserService.getUser(cplIn.getUsername());
             sessionUser = AuthSesssionUser.of(cplIn.getUsername(), user.getFullName(), user.getEmail());
             authSessionUserDao.insert(sessionUser);
-        }
-         else {
-            
+        } else {
             var isJWT = sessionUser.getJwtSessionIds().contains(cplIn.getUsername());
             if (isJWT) {
-                throw new JwtExistException();
+                throw new UnauthorizedRuntimeException("username.not_found");
             }
 
             sessionUser.getJwtSessionIds().add(cplIn.getJwtSession());

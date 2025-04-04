@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.ndhuy.app.exception.application.runtime.ErrorMessageRuntimeException;
+import com.ndhuy.app.exception.application.runtime.ExistRuntimeException;
 import com.ndhuy.app.exception.application.runtime.ForbiddenRuntimeException;
+import com.ndhuy.app.exception.application.runtime.NotChangeRuntimeException;
 import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 import com.ndhuy.app.exception.application.runtime.UnauthorizedRuntimeException;
 
@@ -31,6 +33,21 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleErrorMessageRuntimeException(ErrorMessageRuntimeException ex,
             WebRequest request) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(NullPointerException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String translatedMessage = messageSource.getMessage(
+                ex.getMessage(),
+                null,
+                "Resource not found",
+                request.getLocale());
+
+        errorResponse.put("error", translatedMessage);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -117,5 +134,32 @@ public class RestResponseEntityExceptionHandler {
 
         errorResponse.put("error", translatedMessage);
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(ExistRuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleExistException(ExistRuntimeException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String translatedMessage = messageSource.getMessage(
+                ex.getMessageKey(),
+                ex.getArgs(),
+                "Object already exists",
+                request.getLocale());
+
+        errorResponse.put("error", translatedMessage);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(NotChangeRuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleNotChangeException(NotChangeRuntimeException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String translatedMessage = messageSource.getMessage(
+                ex.getMessageKey(),
+                ex.getArgs(),
+                "Object already exists",
+                request.getLocale());
+
+        errorResponse.put("error", translatedMessage);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

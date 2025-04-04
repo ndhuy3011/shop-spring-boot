@@ -1,12 +1,14 @@
 package com.ndhuy.auth.user.application.service.impl;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
 
+import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleIn;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleOut;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleUserIn;
 import com.ndhuy.auth.user.application.dto.RemoveRoleDto.RemoveRoleUserOut;
-import com.ndhuy.auth.user.application.exception.RoleNotFoundException;
 import com.ndhuy.auth.user.application.service.QueryRoleService;
 import com.ndhuy.auth.user.application.service.QueryUserService;
 import com.ndhuy.auth.user.application.service.RemoveRoleService;
@@ -40,7 +42,7 @@ public class RemoveRoleImpl implements RemoveRoleService {
      *             removed.
      * @return {@link RemoveRoleOut} indicating whether the role was successfully
      *         removed.
-     * @throws RoleNotFoundException If the role does not exist or is still assigned
+     * @throws NotFoundRuntimeException If the role does not exist or is still assigned
      *                               to users.
      */
     @Override
@@ -57,18 +59,18 @@ public class RemoveRoleImpl implements RemoveRoleService {
      *
      * @param cpln {@link RemoveRoleIn} containing information about the role to be
      *             removed.
-     * @throws RoleNotFoundException If the role does not exist or is still assigned
+     * @throws NotFoundRuntimeException If the role does not exist or is still assigned
      *                               to users.
      */
     private void checkMain(RemoveRoleIn cpln) {
         var role = roleDao.findById(cpln.getIdRole());
-        if (role == null) { // Changed from Objects.isNull(role) to role == null
-            throw new RoleNotFoundException(); // Added message
+        if (Objects.isNull(role)) {
+            throw new NotFoundRuntimeException("role."); 
         }
 
-        Long countRoleAUser = roleAUserDao.countByRoleId(cpln.getIdRole()); // Corrected method name
+        Long countRoleAUser = roleAUserDao.countByRoleId(cpln.getIdRole()); 
         if (countRoleAUser > 0) {
-            throw new RoleNotFoundException(); // Added message
+            throw new NotFoundRuntimeException("role.not_found"); 
         }
     }
     /**
@@ -76,15 +78,15 @@ public class RemoveRoleImpl implements RemoveRoleService {
      *
      * @param cpln {@link RemoveRoleUserIn} containing the IDs of the role and user to disassociate.
      * @return {@link RemoveRoleUserOut} containing the IDs of the role and user that were disassociated.
-     * @throws RoleNotFoundException If the role-user association does not exist.  (Note:  The name is slightly misleading, might want to create a new exception)
+     * @throws NotFoundRuntimeException If the role-user association does not exist.  (Note:  The name is slightly misleading, might want to create a new exception)
      */
     @Override
     public RemoveRoleUserOut removeRoleAUser(RemoveRoleUserIn cpln) {
         var roleAUser = roleAUserDao
                 .findById(RoleAUserKey.of(RoleKey.of(cpln.getIdRole()), UserKey.fromString(cpln.getIdUser())));
 
-        if (roleAUser == null) {
-            throw new RoleNotFoundException();
+        if (Objects.isNull(roleAUser)) {
+            throw new NotFoundRuntimeException("role.not_found"); 
         }
         roleAUserDao.delete(roleAUser);
 

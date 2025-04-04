@@ -40,7 +40,7 @@ public class QuerySessionAuthImpl implements QuerySesssionService {
         log.info("get session auth: " + jwt);
         var sessionAuth = sessionAuthDao.findById(jwt);
 
-        Objects.requireNonNull(sessionAuth, "Session Authentication is null");
+        Objects.requireNonNull(sessionAuth, "jwt.not_found");
 
         return GetSesssionAuthOut.builder().jwtSession(jwt).expiresAt(sessionAuth.getExpiresAt())
                 .issueAt(sessionAuth.getIssueAt()).build();
