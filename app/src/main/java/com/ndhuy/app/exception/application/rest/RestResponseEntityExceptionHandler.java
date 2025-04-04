@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.ndhuy.app.exception.application.runtime.ErrorMessageRuntimeException;
+import com.ndhuy.app.exception.application.runtime.ForbiddenRuntimeException;
 import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
+import com.ndhuy.app.exception.application.runtime.UnauthorizedRuntimeException;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,25 +57,23 @@ public class RestResponseEntityExceptionHandler {
         Map<String, String> errorResponse = new HashMap<>();
 
         String translatedMessage = messageSource.getMessage(
-            "error.generic",
-            null,
-            "An unexpected error occurred",
-            request.getLocale()
-        );
+                "error.generic",
+                null,
+                "An unexpected error occurred",
+                request.getLocale());
         errorResponse.put("error", translatedMessage);
 
         HttpStatus status = determineHttpStatus(ex);
         return new ResponseEntity<>(errorResponse, status);
     }
 
-    // Hàm xác định mã trạng thái (tùy chỉnh theo nhu cầu)
     private HttpStatus determineHttpStatus(Exception ex) {
         if (ex instanceof IllegalArgumentException) {
-            return HttpStatus.BAD_REQUEST; // 400
+            return HttpStatus.BAD_REQUEST;
         } else if (ex instanceof UnsupportedOperationException) {
-            return HttpStatus.BAD_GATEWAY; // 502 (ví dụ)
+            return HttpStatus.BAD_GATEWAY;
         } else {
-            return HttpStatus.INTERNAL_SERVER_ERROR; // 500 cho các lỗi chung
+            return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 
@@ -81,14 +81,41 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<Map<String, String>> handleNotFoundException(NotFoundRuntimeException ex) {
         Map<String, String> errorResponse = new HashMap<>();
 
-        // Lấy thông điệp từ file properties dựa trên locale hiện tại
         String translatedMessage = messageSource.getMessage(
                 ex.getMessageKey(),
                 ex.getArgs(),
-                "Resource not found", // Thông điệp mặc định nếu key không tồn tại
+                "Resource not found",
                 request.getLocale());
 
         errorResponse.put("error", translatedMessage);
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UnauthorizedRuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleUnauthorizedException(UnauthorizedRuntimeException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String translatedMessage = messageSource.getMessage(
+                ex.getMessageKey(),
+                ex.getArgs(),
+                "Unauthorized access",
+                request.getLocale());
+
+        errorResponse.put("error", translatedMessage);
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ForbiddenRuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleForbiddendException(ForbiddenRuntimeException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+
+        String translatedMessage = messageSource.getMessage(
+                ex.getMessageKey(),
+                ex.getArgs(),
+                "Forbidden access",
+                request.getLocale());
+
+        errorResponse.put("error", translatedMessage);
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 }
