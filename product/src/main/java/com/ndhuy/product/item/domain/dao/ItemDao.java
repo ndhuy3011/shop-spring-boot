@@ -4,6 +4,6 @@ import com.ndhuy.app.IBaseDao;
 import com.ndhuy.product.item.domain.model.Item;
 import com.ndhuy.product.item.domain.model.key.ItemKey;
 
-public interface IItemDao extends IBaseDao<ItemKey, Item>{
+public interface ItemDao extends IBaseDao<ItemKey, Item>{
     
 }

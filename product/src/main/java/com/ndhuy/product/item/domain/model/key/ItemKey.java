@@ -7,4 +7,7 @@ public record ItemKey(String value) {
     public static ItemKey of(String value){
         return new ItemKey(value);
     }
+    public static ItemKey generateId(){
+        return new ItemKey(java.util.UUID.randomUUID().toString());
+    }
 }

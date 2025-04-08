@@ -3,7 +3,7 @@ package com.ndhuy.product.item.domain.dao.impl;
 import org.springframework.stereotype.Component;
 
 import com.ndhuy.app.exception.application.runtime.NotFoundRuntimeException;
-import com.ndhuy.product.item.domain.dao.IItemDao;
+import com.ndhuy.product.item.domain.dao.ItemDao;
 import com.ndhuy.product.item.domain.model.Item;
 import com.ndhuy.product.item.domain.model.key.ItemKey;
 import com.ndhuy.product.item.domain.reponsitory.ItemRepository;
@@ -15,13 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Slf4j
 @Component
-public class ItemDao implements IItemDao {
+public class ItemDaoImpl implements ItemDao {
 
     @Resource
     ItemRepository itemRepository;
 
     @Override
     public Item insert(Item input) {
+        input.setId(ItemKey.generateId());
         itemRepository.save(input);
         return input;
     }
